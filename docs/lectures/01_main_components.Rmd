@@ -1,0 +1,619 @@
+---
+output: 
+  revealjs::revealjs_presentation:
+    transition: "none"
+    font_adjustment: +20
+---
+
+## Main components of an R-package
+
+<br>
+```{r, out.width = "500pt", echo = FALSE, fig.align="center"}
+
+knitr::include_graphics(path = "C:/Users/az64mycy/Dropbox (iDiv)/teaching/2020_yDiv_Rpackaging/yDiv_building_packages_Rstudio_GitHub/lectures/pictures/Rlogo.jpg")
+```
+
+
+
+## Why R is so useful
+<style>
+    .reveal .slides {
+        text-align: left;
+    }
+    .reveal .slides section>* {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .reveal .slides section .slideContent{
+        font-size: 62px;
+    }
+    .reveal section img {
+    border: none;
+    box-shadow: none;
+  }
+</style>
+
+<style type="text/css">
+{
+  font-size: 28px;
+}
+</style>
+
+
+<br>
+<br>
+Easy to use
+
+<br>
+Easy to get help
+
+<br>
+A lot of work has been done already
+
+## Why R is so useful
+
+<br>
+<br>
+Easy to use
+
+<br>
+Easy to get help
+
+<br>
+**A lot of work has been done already**
+
+
+## What is an R package (for the user)
+
+<br>
+A set of functions or data!
+<br>
+```{r}
+library(raster)
+
+raster()
+```
+
+## Famous packages
+
+```{r, out.width = "1000in", echo = FALSE}
+
+knitr::include_graphics(path = "C:/Users/az64mycy/Dropbox (iDiv)/teaching/2020_yDiv_Rpackaging/yDiv_building_packages_Rstudio_GitHub/lectures/pictures/Popular-R-Packages-2.png")
+```
+
+
+## Famous packages in ecology
+
+<br>
+~15,000 packges on CRAN!
+
+<br>
+vegan
+
+lme, INLA
+
+raster, sp
+
+ape, phytools
+
+## The purpose of R packages
+
+<br>
+Distribute code
+
+Distribute data
+
+Organize analyses
+
+Collaborate on a project
+
+
+## Where packages live
+
+<br>
+1. The Comprehensive R Archive Network (CRAN)
+
+<br>
+2. GitHub
+
+## 1. The Comprehensive R Archive Network (CRAN)
+
+```{r, out.width = "1000in", echo = FALSE}
+
+knitr::include_graphics(path = "C:/Users/az64mycy/Dropbox (iDiv)/teaching/2020_yDiv_Rpackaging/yDiv_building_packages_Rstudio_GitHub/lectures/pictures/cran_full.png")
+```
+
+## 1. The Comprehensive R Archive Network (CRAN)
+
+```{r, out.width = "1000in", echo = FALSE}
+
+knitr::include_graphics(path = "C:/Users/az64mycy/Dropbox (iDiv)/teaching/2020_yDiv_Rpackaging/yDiv_building_packages_Rstudio_GitHub/lectures/pictures/CRAN_packages.png")
+```
+
+
+## We have all done it
+
+<br>
+```{r, eval = FALSE}
+install.packages("ggplot2")
+```
+
+## 2. GitHub
+```{r, out.width = "1000in", echo = FALSE}
+
+knitr::include_graphics(path = "C:/Users/az64mycy/Dropbox (iDiv)/teaching/2020_yDiv_Rpackaging/yDiv_building_packages_Rstudio_GitHub/lectures/pictures/github_intro.png")
+```
+
+## 2. GitHub
+```{r, out.width = "1000in", echo = FALSE}
+
+knitr::include_graphics(path = "C:/Users/az64mycy/Dropbox (iDiv)/teaching/2020_yDiv_Rpackaging/yDiv_building_packages_Rstudio_GitHub/lectures/pictures/github_package.png")
+```
+
+## Also easy
+<br>
+```{r, eval = FALSE}
+library(devtools)
+install_github("azizka/bromeliad")
+```
+
+## Developing an R package
+
+## An example from from the Bromeliaceae
+
+```{r, out.width = "1000in", echo = FALSE}
+
+knitr::include_graphics(path = "C:/Users/az64mycy/Dropbox (iDiv)/teaching/2020_yDiv_Rpackaging/yDiv_building_packages_Rstudio_GitHub/lectures/pictures/pineapple2.png")
+```
+
+## An example from from the Bromeliaceae
+<br>
+```{r, out.width = "1000in", echo = FALSE}
+
+knitr::include_graphics(path = "C:/Users/az64mycy/Dropbox (iDiv)/teaching/2020_yDiv_Rpackaging/yDiv_building_packages_Rstudio_GitHub/lectures/pictures/bromeliad_manuscript.png")
+```
+
+## An example from from the Bromeliaceae
+
+```{r, message = FALSE, warnings = FALSE}
+library(bromeliad)
+
+data("taxonomy_traits")
+
+taxonomy_traits
+```
+
+## An example from from the Bromeliaceae
+
+```{r, message = FALSE, warnings = FALSE}
+data("all_ranges")
+
+all_ranges
+```
+
+## An example from from the Bromeliaceae
+```{r, message = FALSE, warnings = FALSE}
+aechmea <- get_range(genus = "Aechmea")
+```
+
+<!-- ## An example from from the Bromeliaceae -->
+<!-- ```{r, message = FALSE, warnings = FALSE} -->
+<!-- map_richness(aechmea) -->
+<!-- ``` -->
+
+## An example from from the Bromeliaceae
+
+```{r, message = FALSE, warnings = FALSE}
+crvu <- get_range(assessment = c("CR", "VU"))
+#map_richness(crvu)
+```
+
+
+## What is an R package (for a developer)
+<br>
+A folder...
+
+...with standardized structure and names
+
+
+## Package structure
+<br>
+`DESCRIPTION`
+
+`README.md`
+
+`NAMSPACE`
+
+`R/`
+
+`man/`
+
+`data/`
+
+<font color="grey">`inst/, vignettes/, tests/ .Rbuildignore,`</font> 
+<font color="grey">`.gitignore, cran-comments.md, NEWS.md`</font>
+
+
+## Package structure
+
+```{r, out.width = "1000pt", echo = FALSE}
+
+knitr::include_graphics(path = "C:/Users/az64mycy/Dropbox (iDiv)/teaching/2020_yDiv_Rpackaging/yDiv_building_packages_Rstudio_GitHub/lectures/pictures/package_folder.png")
+```
+
+
+## DESCRIPTION
+
+A .txt file giving basic and standardized information on the package
+
+## DESCRIPTION
+<br>
+```
+Package: bromeliad
+Title: Distribution Data for 3272 Bromeliad Species
+Version: 0.9-2
+Authors@R: person("Alexander", "zizka", 
+                  email = "zizka.alexander@gmail.com",
+                  role = c("aut", "cre"))
+Description: Contains range estimates and modelled distributions for 
+             3272 species of the ananas family (Bromeliaceae), 
+             together with some convenience functoins to extract 
+             specific taxa and life forms and visualize diversity.
+Depends: R (>= 3.5.0)
+Imports: dplyr, ggplot2, ggthemes, magrittr, methods,
+         raster, rnaturalearth, 
+         speciesgeocodeR, rlang, sf, sp, viridis
+License: GPL-3
+Encoding: UTF-8
+RoxygenNote: 6.1.1
+```
+
+## README.md
+<br>
+A description of the package for Github
+
+
+## README.md
+```[md}
+# bromeliad 0.9-2
+
+A data package with distribution data for 2272 bromeliaceae species across tropical America.
+
+## Included data
+The package includes five data files:
+
+1. `taxonomy traits` - a data.frame with taxonomy, traits and conservation assessment for the included species.
+2. `all_ranges` - a simple features object containing range polygons for all 2395 species.
+3. `model_binary` - a list of presence/absence rasters, for 541 species for which the ranges were estimated based on climate suitability models
+4. `model_ensemble` - a list of rasters with habitat suitability, for 541 species for which the ranges were estimated based on climate suitability models
+5. `digitized_records` - a data.frame with the point locations of XXX species type specimens, georeferenced from the literature for this package
+
+## Installation
+The package can be installed from github using `devtools::install_github`
+library(devtools)
+
+install_github("idiv-biodiversity/bromeliad")
+
+library(bromeliad)
+
+
+## Documentation
+The package also includes some convinieince functions to select taxa and visualize species ranges and diversity. A vignette describing how to select individual taxa and visualize species distributions and diversity patterns is available [here]().
+
+## Contribute
+If you want to contribute with new species or corrections, please contact the [maintainer](mailto:alexander.zizka@idiv.de) of the package.
+
+## Licence
+The package and data are available under a GPL-3 license.
+
+## Citation
+Please cite the package as Zizka A *et al.* (2019) bromeliad. An R package for biogeography and conservations tatus of Bromeliaceae.
+
+```
+
+## README.md
+```{r,out.width = "1000pt", echo = FALSE}
+
+knitr::include_graphics(path = "C:/Users/az64mycy/Dropbox (iDiv)/teaching/2020_yDiv_Rpackaging/yDiv_building_packages_Rstudio_GitHub/lectures/pictures/readme_screenshot.png")
+```
+
+
+## NAMESPACE
+<br>
+A file with the names of all functions that your package uses and provides. 
+
+## NAMESPACE
+
+```
+export(get_range)
+export(map_richness)
+export(map_species)
+importFrom(dplyr,filter)
+importFrom(dplyr,mutate)
+importFrom(ggplot2,aes)
+importFrom(ggplot2,annotate)
+importFrom(ggplot2,coord_fixed)
+importFrom(ggplot2,element_line)
+importFrom(ggplot2,fortify)
+importFrom(ggplot2,geom_polygon)
+importFrom(ggplot2,geom_sf)
+importFrom(ggplot2,geom_tile)
+importFrom(ggplot2,ggplot)
+importFrom(ggplot2,ggtitle)
+importFrom(ggplot2,theme)
+importFrom(ggplot2,xlim)
+importFrom(ggplot2,ylim)
+importFrom(ggthemes,theme_map)
+importFrom(magrittr,"%>%")
+importFrom(methods,as)
+importFrom(raster,crop)
+importFrom(raster,extend)
+importFrom(raster,extent)
+importFrom(raster,raster)
+importFrom(raster,rasterToPoints)
+importFrom(rlang,.data)
+importFrom(rnaturalearth,ne_download)
+importFrom(sf,st_transform)
+importFrom(sp,CRS)
+importFrom(sp,spTransform)
+importFrom(speciesgeocodeR,RangeRichness)
+importFrom(utils,data)
+importFrom(viridis,scale_fill_viridis)
+```
+
+## data/
+<br>
+The datasets distributed with the package. Can be example data or the purpose of the package.
+
+## data/
+<br>
+Can be any object that can be loaded into R.
+
+Tables, shape files, ...
+
+## data/
+
+```{r, message = FALSE, warnings = FALSE}
+data("taxonomy_traits")
+
+taxonomy_traits
+```
+
+## R/
+<br>
+The code (functions) provided via your package.
+
+## Functions
+<br>
+In packages code is distributed as functions.
+<br>
+Functions are objects just as variables.
+
+## Functions
+```{r, eval = F}
+function_name(x, options)
+```
+
+```{r}
+x <- c(2,3,5,6)
+
+mean(x)
+```
+
+## For example
+```{r}
+sum_numbers <- function(x, y){
+  out <- x + y
+  return(out)
+ }
+
+sum_numbers(x = 2, y = 2)
+
+sum_numbers(x = 1000, y = 1)
+```
+
+
+## For example
+```{r}
+smiley <- function(happy){
+  if(happy){
+    print(":-)")
+  }else{
+    print(":-(")
+  }
+}
+
+smiley(happy = TRUE)
+
+smiley(happy = FALSE)
+```
+
+## R/
+```{r, out.width = "1000pt", echo = FALSE}
+
+knitr::include_graphics(path = "C:/Users/az64mycy/Dropbox (iDiv)/teaching/2020_yDiv_Rpackaging/yDiv_building_packages_Rstudio_GitHub/lectures/pictures/R_folder.png")
+```
+
+
+## R/
+
+```
+get_range <- function(scientific = NULL, canonical = NULL,
+                      genus = NULL, subfamily = NULL,
+                      life_form = NULL,
+                      assessment = NULL, range_size = NULL,
+                      type = "polygon"){
+
+  match.arg(type, choices = c("binary", "suitability", "polygon"))
+
+  taxonomy_traits <- bromeliad::taxonomy_traits
+
+  if(!is.null(scientific)){
+    taxonomy_traits <- dplyr::filter(taxonomy_traits, .data$tax_accepted_name %in% scientific)
+  }
+
+  if(!is.null(canonical)){
+    taxonomy_traits <- dplyr::filter(taxonomy_traits, .data$tax_canonical %in% canonical)
+  }
+
+  if(!is.null(genus)){
+    taxonomy_traits <- dplyr::filter(taxonomy_traits, .data$tax_genus %in% genus)
+  }
+
+  if(!is.null(subfamily)){
+    taxonomy_traits <- dplyr::filter(taxonomy_traits, .data$tax_subfamily %in% subfamily)
+  }
+
+  if(!is.null(life_form)){
+    taxonomy_traits <- dplyr::filter(taxonomy_traits, .data$tr_growth_form %in% life_form)
+  }
+
+  if(!is.null(assessment)){
+    taxonomy_traits <- dplyr::filter(taxonomy_traits, .data$conv_conr_stat %in% assessment)
+  }
+
+  if(!is.null(range_size)){
+    taxonomy_traits <- dplyr::filter(taxonomy_traits, .data$geo_range > range_size[1] & .data$geo_range < range_size[2])
+  }
+
+  switch(type,
+         binary = {model_binary <-  bromeliad::model_binary;
+                   out <- model_binary[which(names(model_binary) %in% taxonomy_traits$tax_accepted_name)]},
+         suitability = {model_ensemble <- bromeliad::model_ensemble; out <- model_ensemble[which(names(model_ensemble) %in% taxonomy_traits$tax_accepted_name)]},
+         polygon = {all_ranges <- bromeliad::all_ranges; out <- dplyr::filter(all_ranges, .data$tax_accepted_name %in% taxonomy_traits$tax_accepted_name)}
+           )
+
+  class(out) <- c("bromeli", class(out))
+
+  return(out)
+}
+
+
+```
+
+## man/
+<br>
+The documentation of your code. One file per function.
+
+## man/
+```{r, out.width = "1000pt", echo = TRUE, eval = F}
+?get_range
+```
+
+```{r, out.width = "800pt", fig.align="center", echo = FALSE}
+knitr::include_graphics(path = "C:/Users/az64mycy/Dropbox (iDiv)/teaching/2020_yDiv_Rpackaging/yDiv_building_packages_Rstudio_GitHub/lectures/pictures/function_help.png")
+```
+
+## man/
+```{r, out.width = "1000pt", echo = FALSE}
+
+knitr::include_graphics(path = "C:/Users/az64mycy/Dropbox (iDiv)/teaching/2020_yDiv_Rpackaging/yDiv_building_packages_Rstudio_GitHub/lectures/pictures/man_folder.png")
+```
+
+
+## man/
+```
+#' Select Bromeliaceae Species Ranges by Taxonomy and Traits
+#'
+#'Get the geographic range for all species selected via the arguments.
+#'The type of range estimate depends on the \dQuote{type} argument.
+#'
+#'Modelled ranges are available for 542 species,
+#'range polygons for 2395 species. For species with model distribution, the range polygons are based on the models, otherwise
+#'on a convex hull around available occurrence records, or a 50 km buffer for species with less than 3 occurrence records available.
+#'See Zizka et al 2019 for methods.
+#'
+#' @param scientific a character vector of full scientific names including authorities, of the species of interest
+#' @param canonical a character vector of canonical names, of the species of interest.
+#' @param genus a character vector of genera names to select.
+#' @param subfamily a character vector of subfamily names to select.
+#' @param life_form a character vector of life forms to select.
+#' @param assessment a character vector of conservation assessment to select=.
+#' @param range_size a vector of two numericals with the minimum and maximum range size (in square kilometres), to select.
+#' @param type a cahracter defining the output format, see details
+#'
+#' @return Depending on the \dQuote{type} argument. If \dQuote{binary} a presence/absence raster based on the modelled habitat suitability,
+#'  at 100x100 km resolution in Behrmann projection,
+#'  if \dQuote{suitability} the habitat suitability as predicted by an ensemble model in Behrmann projection, and
+#'  if {polygon} a simple feature object in lat/lon projection.
+#' .
+#' @examples
+#' get_range(scientific = "Aechmea mexicana Baker")
+#' get_range(scientific = "Aechmea mexicana Baker", type = "binary")
+#' get_range(scientific = "Aechmea mexicana Baker", type = "suitability")
+#' get_range(canonical = "Aechmea mexicana")
+#' get_range(genus = "Aechmea")
+#' get_range(genus = "Aechmea", type = "binary")
+#' get_range(genus = c("Aechmea", "Zizkaea"))
+#' get_range(subfamily = "Pitcairnioideae")
+#' get_range(life_form = "epiphyte")
+#' get_range(assessment = c("CR", "VU"))
+#' get_range(range_size = c(1000, 10000))
+#'
+#' @export
+#' @importFrom dplyr filter
+#' @importFrom methods as
+#' @importFrom rlang .data
+#'
+#'
+```
+
+## The rest
+
+<br>
+`inst/` - non-text files (e.g. pdfs)
+
+`vignettes/` - Tutorials and documentation
+
+`test` - automated tests of the code
+
+`.gitignore` - files git should ignore
+
+`.Rbuildignore` - files R CMD build should ignore
+
+
+## Build and check
+
+<br>
+Build
+
+Check
+
+Deploy
+
+
+## Summary
+
+<br>
+An R package is a set of standardized folders
+
+`Description` - basic information
+
+`Readme` - basic information
+
+`data/` -  datasets of the package
+
+`R/` - the functions of the package
+
+`man/` - the documentation of the code
+
+others - to facilitate the developement progress and provide additional information
+
+## How to develope an R-package
+<br>
+<br>
+Rstudio, Github, Git, devtools, roxygen2
+
+<br>
+Rstudio workflow. Next lecture!
+
+## Your project!
+<br>
+<br>
+Chose a dataset from your research that you want to provide as an R package, and one or two basic functions to use it.
+
+## Remember
+<br>
+Error messages are you frineds!
+
+

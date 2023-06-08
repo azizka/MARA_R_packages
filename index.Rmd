@@ -1,0 +1,98 @@
+---
+output: 
+  html_document:
+    theme: readable
+---
+
+# MARA Course: Distributing Research Data and Code in R Packages with Rstudio and GitHub
+
+Date & time: Thursday, June 22 – Friday, June 23 (2 full days)
+
+Location: Philipps-Universität Marburg MARA F|05, Deutschhausstraße 11+13 Seminar room 01.0010 
+
+Teachers: Alexander Zizka & Steffen Ehrmann, University of Leipzig and German Centre for Integrative Biodiversity Research  
+
+
+# Detailed schedule and locations
+Day 1 - 9:00 - 17:00 (room 01.0010)
+
+Morning
+
+1. Hi from Alex and & Steffen
+2. Lectures "Main components of an R-package"
+3. Student project design
+4. "How to build an R package – Tools and workflow"
+
+Afternoon
+
+5. Demo + exercise 1 "Package skeleton and data"
+6. Demo + exercise 2&3 "Data and Functions"
+7. Demo + exercise 4: "Building and checks"
+
+Day 2 - 9:00 - 17:00 (room 01.0010)
+
+Morning
+
+1. Project work
+2. Lecture & exercise "package testing" (Steffen)
+
+Afternoon
+
+3. Demo Code documentation (Steffen)
+4. Project work
+5. Demo package release (Alex)
+6. Student presentations
+7. Course evaluation and Wrap up
+
+## Before the course
+
+Please:
+
+* Make sure to have the following software installed an running on your computer before the course:
+
+  *	R (4.3, https://cran.r-project.org/) 
+  *	Rstudio (https://www.rstudio.com/products/rstudio/download/#download)
+  *	Rtools (https://cran.rstudio.com/bin/windows/Rtools/ for windows, see https://www.rstudio.com/products/rpackages/devtools/ for Mac and linux)
+  *	Git (https://git-scm.com/downloads)
+  *	If you do not yet have a github account, please open one at https://github.com/
+
+* Read chapters 2, 6-10 and 16 of this free online book: https://r-pkgs.org/. 
+
+Please do not hesitate to [contact us](mailto:alexander.zizka@biologie.uni-marburg.de) if you have any questions.
+
+
+## Objectives
+
+After this course, students will be able to
+
+1. understand the structure of R-packages and their main elements	
+2. use up-to-date methodology to provide R code and data as R-package
+3. be familiar with common tools for packaging, including roxygen2, devtools, and GitHub
+
+
+## Background
+R is a widely used tool for data analyses in ecology. Part of its success is due to the active community and the wide array of add-on packages contributed by scientists from across disciplines, via the CRAN network. R packages are an excellent and standardize way to distribute code and data to a huge community, and a great tool to ensure reproducible research. The course guides through the process of building and R package starting from conceptualization to testing. The course consists of introductory demonstrations coupled with hands-on exercises on the different stages of package building, plus time to work on a small example.
+
+
+## Project Assignment
+During the course you will write a small data package based on your own data with guidance from the teachers.
+
+
+## Examination
+Grades are pass/fail. Successful participants should participate in all course days and present a project on the last day. A certification will be issued for all participants.
+
+
+## Literature
+https://r-pkgs.org/, chapters 2, 6-10 and 16.
+
+
+## Course level and requirements
+This is a course for graduate students and researchers that routinely use R for analysis and want to learn how to distribute data and code as R package.
+
+
+## Number of students
+max. 10
+
+
+## Language of instruction
+English

@@ -1,0 +1,56 @@
+---
+title: "Exercise 4 - Building and checks"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+---
+
+# Introduction
+
+Building and checking are two essential steps to finalize your R package. Building means converting your package into a .tar file ("Tape ARchiver" or "tarball") which converts the folder structure of your package into a single file which can easily be read by machines and distributed. Checking means tuning a set of tests on your package, ensuring, that it follows R package conventions, is portable across platforms and does not cause problems or damage to the users.
+
+# Exercises
+
+## 1. Build the package
+To build your package, either use the build tab of Rstudio or run `build(".")` in the package directory. This will check basic things about your code and then produce the tarball. You need to load the devtools package to use the functions for building and checking.
+
+```{r, eval = FALSE}
+library(devtools)
+
+build(".")
+```
+
+## 2. Check the package
+If the building worked, it is now time to put your code under scrutiny. To do so, we will first run R CMD check on your package. You can either do that using the build tab in Rstudio or `check`. This will run a large sets of different checks and prompt a message if the test was passed or what the problems are. The error messages of check are extremely useful to find problems in your code and make sure the package is set up alright. If you find any error messages, go back to the respective files in the 'R/' or 'data' folder and fix them. then repeat the check.
+
+```{r, eval = FALSE}
+check(".")
+```
+
+## 3. Tidy code and goodpractice
+
+On top of `check` we will run two additional test to make sure the code of your package is readable and does not cause problems. First, we will run the spellcheck function of the `devtools` package, to check the documentation of your package. 
+
+```{r, eval = FALSE}
+spell_check()
+```
+
+If you think that your code might need some tweaking of readability and coding best practices. You can run the `tidy_dir()` function of the formatR package. Since formatR sometimes makes doubtful changes in the formatting, especially concerning the line breaks, make sure to check your '.R' files afterwards and do manual changes where necessary.
+
+```{r, eval = FALSE}
+tidy_dir("/R")
+```
+
+Finally, run the goodpractice checks. These will catch some additional problems beyond `check`, for instance. This may take some time to run.
+
+```{r, eval = FALSE}
+source("https://install-github.me/MangoTheCat/goodpractice")
+library(goodpractice)
+
+gp("ABSOLUTE_PATH_TO_YOUR_PACKAGE")
+```
+
+## 4. Repeat until no more Errors, Warnings or Notes occur
+
+## 5. Done!

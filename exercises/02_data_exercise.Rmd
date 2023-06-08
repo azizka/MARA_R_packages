@@ -1,0 +1,75 @@
+---
+title: "Exercise 2 - Data"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+---
+
+# Introduction
+
+Many R packages do contain data on top of code an functions, mostly either as example data for the examples in the help files and vignettes, or because there purpose is to distribute data (they are "data packages"). Data packages can be useful  to distribute commonly used datasets, for teaching, as compliment to other packages or as supplement to scientific papers. Examples for data packages include [carData](https://cran.r-project.org/web/packages/carData/index.html) which includes different data tables and the [rnaturalearth](https://cran.r-project.org/web/packages/rnaturalearth/README.html), which distributes gazetteers of global country borders, cities, coastlines and others from www.naturalearth.org.
+
+# Which data to distribute in a package
+You can put any data into an package that can be loaded into R and saved as a '.rda' file. The most common format are tables saved as `data.frame`. In practice, the size of the data can be a limiting factor. CRAN packages usually should be smaller than 5 MB and packages larger than 20 MB are inconvenient to distribute, also via GitHub. But this already corresponds to table with many thousand entries.
+
+Three big advantages of distributing data via R packages are (1) the easy accessibility for users that know R, (2) the possibility to distributed code with the data, for instance including convenience functions or complete analyses, and (3) the easy inclusion of meta-data via the help-file and vignettes. 
+
+# Data documentation
+Similar to functions dataset in R packages have a help file, that can be called with `?` and that includes metadata and more detailed information of the content of the dataset. We will use Roxygen2 for the dataset documentation.
+
+
+# Example data
+For this course, chose one (or multiple) datasets from your own research as example data to work on. In case you do not have any data on your own, you can use an example table of plant traits from the "example_data/" folder in the [github repository](https://github.com/idiv-biodiversity/yDiv_building_packages_Rstudio_GitHub/settings) of the course, which is derived from the [cluster package](https://cran.r-project.org/web/packages/cluster/index.html).
+
+
+# Exercise
+
+## 1. Load data into R
+Load your example dataset into R, using the appropriate functions. Remember that you must import any functions and classes needed to load the data and add the respective packages to the imports section of the DESCRIPTION file. For instance if  you want to load shape files you need to add the `sf` package.
+
+For the plant traits dataset, you can use for example `read.csv`.
+
+```{r, eval = FALSE}
+plt_trait <- read.csv("example_data/plantTraits.csv")
+```
+
+## 2. Structure and name
+Make sure the dataset has the format you want and check that the R object is named as you want.
+
+## 3. Save data as .rda to the data/ folder
+Now, save the dataset in the data/ folder of your package as an .rda file using `save`.
+
+```{r, eval = FALSE}
+use_data(plt_trait)
+```
+
+## 4. Data documentation
+Adding metadata and more details to the documentation of your dataset it the most important step. We will create the documentation using roxygen2. Datasets are best documented in an R file in the code directory named 'data'. You can see an example (rather short) documentation from the `bromeliad` package below. Write the documentation for your dataset and make sure all necessary information is included. Then save it as a .R file in the "R/" folder.
+
+```
+#' taxonomy_traits
+#'
+#' A datset of species known to be phylogenetically derived woody
+#'
+#' @format A data frame with 17 variables:
+#' \describe{
+#' \item{\code{tax_accepted_name}}{the accepted species name}
+#' \item{\code{tax_genus}}{the genus}
+#' \item{\code{tax_tribus}}{the tribus}
+#' \item{\code{tax_subfamily}}{the subfamily}
+#' \item{\code{geo_range}}{the range size of the species, based on the modelled distribution}
+#' \item{\code{conv_conr_eoo}}{the extent of occurrence}
+#' \item{\code{conv_conr_aoo}}{the area of occupancy}
+#' \item{\code{conv_conr_pop}}{the number of independent populations deived during automated assessment}
+#' \item{\code{conv_conr_code}}{The detailled code of the conservation status based on automated assessment}
+#' \item{\code{conv_conr_stat}}{The conservation status of the species based on automated conservation assessment}
+#' \item{\code{tr_growth_form}}{the growth form of the species from the world checklist of selected plant families}
+#' \item{\code{tax_canonical}}{the canonical species name}
+#' }
+#'
+#'
+"taxonomy_traits"
+```
+
+## 5. Done!

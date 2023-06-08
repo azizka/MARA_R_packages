@@ -1,0 +1,219 @@
+---
+title: "Exercise 1 - Package skeleton"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+Before we start, we will however, sue the Rstudio interface to set up the project and tyhe connection with github.
+
+# 1. Create a github repository
+
+Go to www.github.com and log in to your account. Create a new repository, with a suitable repository name (ideally the name of your package, only lowercase letters).
+
+# 2. Link an Rstudio project with github
+
+OPen Rstudio and create a new project. Select "Version control" > Git and copy the url of your github repository. Let Rstuido restart. You will now see the git tab newly added to the project panes.
+
+# 3. Set up package build tools.
+
+Go to "Tools" > "Project options" > "Build tools" select "package". Done.
+
+# 4. Set up package structure
+
+FRom now on we will exclusively use the R console to build the package. In this course we try to have each step be based on an R function that carries out the step. For many steps there are alternative ways, including to click on some button. This is typical for R, but also makes it at times cumbersome to find the right way to do something, there is often no "right way".
+
+However, there is a "more reproducable way", for example when using an R function instead of clicking on buttons. The buttons may be at different locations in the specific IDE (Integrated development environment, here RStudio) but the function works in any instance of R that has the respective package installed. To provide fully transparent and reproducilbe documentation, you can write down all those steps you took to make the package via R functions, in a document just like this.
+
+THE R package that assistes in package development is `devtools` (in combination with `usethis` that got installed automatically with `devtools`). To start building a package, we thus first load this package.
+
+
+```{r}
+library(devtools)
+```
+
+## Create description
+
+```{r}
+use_description()
+```
+
+## Create namespace file
+
+```{r}
+use_namespace()
+```
+
+## Set a license
+
+Chose the license you want to use for this package and supply it with one of the `use_*_license()` functions.
+
+```{r, eval=FALSE}
+use_gpl3_license(name = "me")
+#> ✔ Setting License field in DESCRIPTION to 'GPL-3'
+#> ✔ Writing 'LICENSE.md'
+#> ✔ Adding '^LICENSE\\.md$' to '.Rbuildignore'
+```
+
+
+# Edit `DESCRIPTION`
+
+The `DESCRIPTION` gather all information that crucially important as metadata to your package. It contains, amongst others, title and description, dependencies, the package version and author information. The version created by `create_package()` is relatively self-explanatory.
+
+```{r, eval=FALSE}
+Package: myPackage
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "First",
+           family = "Last",
+           role = c("aut", "cre"),
+           email = "first.last@example.com",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: What the package does (one paragraph).
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+```
+
+You have to add some fields yourself, for example the url of the package and where bugs can be reported
+
+```{r eval=FALSE}
+URL: https://github.com/"YOUR USERNAME/myPackage"
+BugReports: https://github.com/"YOUR USERNAME/myPackage"/issues
+```
+
+## Dependencies
+Some fields are gonna be added automatically with other `usethis` functions. For example, most packages will require functions from other packages that are not part of base R. Let's say you want to do some data wrangling with `dplyr`, want to use `tibble` instead of `data.frame` and intend to describe the idea of your package in a vignette names `overview`. You would include those via.
+
+```{r, eval=FALSE}
+use_package("dplyr")
+#> ✔ Setting active project to '/path/to/myPackage'
+#> ✔ Adding 'dplyr' to Imports field in DESCRIPTION
+#> ● Refer to functions with `dplyr::fun()`
+use_package("tibble")
+#> ✔ Adding 'tibble' to Imports field in DESCRIPTION
+#> ● Refer to functions with `tibble::fun()`
+usethis::use_vignette(name = "overview")
+#> ✔ Adding 'knitr' to Suggests field in DESCRIPTION
+#> ✔ Setting VignetteBuilder field in DESCRIPTION to 'knitr'
+#> ✔ Adding 'inst/doc' to '.gitignore'
+#> ✔ Creating 'vignettes/'
+#> ✔ Adding '*.html', '*.R' to 'vignettes/.gitignore'
+#> ✔ Adding 'rmarkdown' to Suggests field in DESCRIPTION
+#> ✔ Writing 'vignettes/overview.Rmd'
+#> ● Modify 'vignettes/overview.Rmd'
+```
+
+This would add the following to `DESCRIPTION`, right after `RoxygenNote: 6.1.1`.
+
+```{r eval=FALSE}
+Imports: 
+    dplyr,
+    tibble
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+```
+
+The packages listed in `Imports:` have to be installed on the users system and the packages listed in `Suggests:` are not required, but optionally used at some point in your package. `knitr` and `rmarkdonw` will, for example, be used when you build the vignette, but the user does not have to do that on their machine.
+
+## Versioning
+
+`use_description()` has already assigned a version to your package. Whenever you include additions, you should increase that version number. For now it is sufficient that each new feature increases the number in your `DESCRIPTION` by one, for example from `0.0.0.9000` to `0.0.0.9001`. For more detailed information on how to handle versioning, check out [this](https://r-pkgs.org/description.html#version).
+
+## Include your ORCiD
+
+`create_package()` has already included a field in `DESCRIPTION` for your ORCiD identifier. This is recently a comment to your name. Make use of it for all authors!
+
+
+
+<!-- # Create the package -->
+
+<!-- You can start setting up a project via clicking on *File > New Project > New Directory > R package* and fill in information in the dialog that opens. However, you can also simply use the function `create_package()`, provide it with the path where you want to package to be stored and let it set up everything. Realistically, using the command line may even be faster when you are not used to it (yet). -->
+
+<!-- ```{r, eval=FALSE} -->
+<!-- create_package(path = "/path/to/myPackage") -->
+<!-- #> ✔ Creating '/path/to/myPackage/' -->
+<!-- #> ✔ Setting active project to '/path/to/myPackage' -->
+<!-- #> ✔ Creating 'R/' -->
+<!-- #> ✔ Writing 'DESCRIPTION' -->
+<!-- #> Package: myPackage -->
+<!-- #> Title: What the Package Does (One Line, Title Case) -->
+<!-- #> Version: 0.0.0.9000 -->
+<!-- #> Authors@R (parsed): -->
+<!-- #>     * First Last <first.last@example.com> [aut, cre] (<https://orcid.org/YOUR-ORCID-ID>) -->
+<!-- #> Description: What the package does (one paragraph). -->
+<!-- #> License: What license it uses -->
+<!-- #> Encoding: UTF-8 -->
+<!-- #> LazyData: true -->
+<!-- #> ✔ Writing 'NAMESPACE' -->
+<!-- #> ✔ Writing 'myPackage.Rproj' -->
+<!-- #> ✔ Adding '.Rproj.user' to '.gitignore' -->
+<!-- #> ✔ Adding '^myPackage\\.Rproj$', '^\\.Rproj\\.user$' to '.Rbuildignore' -->
+<!-- #> ✔ Opening '/path/to/myPackage/' in new RStudio session -->
+<!-- #> ✔ Setting active project to '/path/to/teaching/yDiv_building_r_packages' -->
+<!-- ``` -->
+
+<!-- The grey text is printed to the console to inform you about the progress. After it has been successful, a new RStudio session will be started, in which you would commence package development. This is it already, the most basic package skeleton has been created at `/path/to/myPackage/`. -->
+
+
+<!-- # Set up git(hub) -->
+
+<!-- As a next step we already set up git, to trace the development of our package and to be able to revert to a previous state if we have included a grave mistake that can't be corrected easily. -->
+
+<!-- ```{r, eval=FALSE} -->
+<!-- library(devtools) -->
+<!-- use_git() -->
+<!-- #> ✔ Setting active project to '/path/to/myPackage' -->
+<!-- #> ✔ Initialising Git repo -->
+<!-- #> ✔ Adding '.Rhistory', '.RData' to '.gitignore' -->
+<!-- #> There are 5 uncommitted files: -->
+<!-- #> * '.gitignore' -->
+<!-- #> * '.Rbuildignore' -->
+<!-- #> * 'DESCRIPTION' -->
+<!-- #> * 'myPackage.Rproj' -->
+<!-- #> * 'NAMESPACE' -->
+<!-- #> Is it ok to commit them? -->
+<!-- #>  -->
+<!-- #> 1: Negative -->
+<!-- #> 2: For sure -->
+<!-- #> 3: No way -->
+<!-- #>  -->
+<!-- #> Selection: 2 -->
+<!-- #> ✔ Adding files -->
+<!-- #> ✔ Commit with message 'Initial commit' -->
+<!-- #> ● A restart of RStudio is required to activate the Git pane -->
+<!-- #> Restart now? -->
+<!-- #>  -->
+<!-- #> 1: Nope -->
+<!-- #> 2: I agree -->
+<!-- #> 3: Absolutely not -->
+<!-- #>  -->
+<!-- #> Selection: 2 -->
+<!-- ``` -->
+
+<!-- Which would restart RStudio once again to update its interface for git-functionality (i.e., add buttons to access and manage git). Call `library(devtools)` once again. Configure your `git` data by entering the following information into the Terminal, not the Console, into which you have entered the R code so far. The Terminal is in RStudio right next to the Console Tab. The Email address must be the same as the one you used to register your github account. -->
+
+<!-- ```{r, eval=FALSE} -->
+<!-- git config --global user.name "YOUR FULL NAME" -->
+<!-- git config --global user.email "YOUR EMAIL ADDRESS" -->
+<!-- ``` -->
+
+<!-- Now set up a github repository (at [www.github.com](www.github.com)), into which the code will be pushed and tell R about it via the following code (again in the Terminal). -->
+
+<!-- ```{r, eval=FALSE} -->
+<!-- git remote add origin git@github.com:"YOUR USERNAME/myPackage".git -->
+<!-- git push -u origin master -->
+<!-- ``` -->
+
+

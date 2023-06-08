@@ -1,0 +1,208 @@
+---
+output: revealjs::revealjs_presentation
+---
+
+# Package documentation and release
+
+## Vignettes
+<br>
+Vignettes are more detailed than help apckes, for instance tutorials for analyses or explanations of algorithms 
+
+
+## Vignettes
+<br>
+You can write vignettes in markdown, combining text and code.
+
+# Vignettes
+
+```
+---
+title: "Select and plot bromeliaceae distribution and diversity"
+# output: rmarkdown::html_vignette
+output: rmarkdown::pdf_document
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.pos="H"
+)
+
+
+The bromeliad package contains estimated distributions for 2395 species of the pineapple family (Bromeliaceae) plus three functions to access and visualize this data: `get_range`, `map_species`, `map_richness`. The included ranges were estimated from occurrence records, using different algorithms, including climate suitability models based on climate, convex hulls and geospatial buffering. Make sure to check Zizka *et al.* 2019 for the methodology of range estimation. 
+
+# Libraries and installation
+You can install bromeliad using the devtools package. If you want to visualize species richness patterns, you also need to install speciesgeocodeR.
+
+{r, eval = T}
+library(devtools)
+
+#install_github("idiv-biodiversity/bromeliad")
+#install_github("azizka/speciesgeocodeR")
+
+library(bromeliad)
+library(speciesgeocodeR)
+
+
+
+# Selection and vizualisation
+
+If you want to use data for all bromeliaceae, you can access them directly via the dataset using `data()`. If you are only interested in a subset of the species you can use the `get_range` function to select species based on taxonomy (scientific name, canonical name, genus, subfamily) or traits (life form, range size, conservation assessment), or a combination of those.
+
+You can select one or multiple species and visualize their range as per species map. The type argument controls what kind of range estimation is selected.
+
+{r, fig.height = 5}
+# range polygon based on scientific name with authorities
+dat <- get_range(scientific = "Aechmea mexicana Baker")
+
+# presence absence model
+dat <- get_range(scientific = "Aechmea alba Mez", type = "binary")
+
+#modelled habitat suitability
+dat <-  get_range(scientific = "Aechmea alba Mez", type = "suitability")
+
+# based on canonical name
+dat <- get_range(canonical = "Aechmea mexicana")
+
+# multiple species
+dat <- get_range(canonical = c("Aechmea mexicana", "Aechmea alba"))
+
+# Species maps
+map_species(canonical = "Aechmea mexicana")
+
+
+\pagebreak
+
+You can also use higher rank taxa to select multiple species at once.
+{r, fig.height = 5}
+# one genus
+dat <-  get_range(genus = "Aechmea")
+
+# multiple genera
+dat <- get_range(genus = c("Aechmea", "Zizkaea"))
+
+# subfamily
+dat <- get_range(subfamily = "Pitcairnioideae")
+
+#Richness pattern
+map_richness(dat)
+
+
+\pagebreak
+
+Or based on traits and conservation status.
+
+{r}
+#life form
+dat <- get_range(life_form = "epiphyte")
+map_richness(dat)
+
+# conservation status
+dat <-  get_range(assessment = c("CR", "VU"))
+
+
+\pagebreak
+
+Different criteria can also be combined, for instance to get all species of *Aechmea* classified as critcally endangered, endangered or vulnerable.
+
+{r}
+dat <-  get_range(genus = "Aechmea", assessment = c("CR", "EN", "VU"))
+map_richness(dat)
+
+
+\pagebreak
+
+# Write results to disk
+
+To write one of the taxonomy and conservation assessment as a table, use
+
+{r, eval = F}
+data(taxonomy_traits)
+write.csv(taxonomy_traits, "georeferenced_bromeliad_occurrences.csv")
+
+
+
+To write the ranges as a shape file, use
+
+{r, eval = F, message = FALSE, warning = FALSE}
+library(sf)
+st_write(dat, "distribution_ranges.shp")
+
+
+
+To write the georeferenced occurrences as a table, use
+
+{r, eval = F}
+data(georef_additions)
+write.csv(georef_additions, "georeferenced_bromeliad_occurrences.csv")
+
+```
+
+## Vignettes
+
+Example
+
+
+<!-- ## Package checks -->
+
+<!-- ## Package checks -->
+<!-- <br> -->
+<!-- R CMD check -->
+
+<!-- Best practices -->
+
+## Package release
+
+A picture
+
+## Package release
+<br>
+Github
+
+CRAN
+
+# Releasing on GitHub
+<br>
+make sure your apckage is ready:
+  - documentation
+  - best practices
+  - checks
+  - tests
+
+Tag a realease
+
+## Tag a release
+
+
+
+## Releaseing a package on CRAN
+<br>
+High quality
+
+High reach
+
+Safety
+
+Good reputation
+
+## If you want to release a package on CRAN
+<br>
+...expect some extra work
+
+
+##Release on CRAN
+<br>
+Follow best practices
+
+Read and strictly follow 'Writing R extensions'
+
+Solve all R CMD errors, warnings and notes
+
+# Release on CRAN
+
+## Ropensci

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="" />
+
+<meta name="date" content="2023-06-06" />
+
+<title>Further Reading</title>
+
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Building R-packages with Rstudio and Github</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Exercises
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="exercises/01_package_skeleton_exercise.html">01 - Package skeleton</a>
+    </li>
+    <li>
+      <a href="exercises/02_data_exercise.html">02 - Data</a>
+    </li>
+    <li>
+      <a href="exercises/03_functions_exercise.html">03 - Functions and documentation</a>
+    </li>
+    <li>
+      <a href="exercises/04_building_and_checks_exercise.html">04 - Building and checks</a>
+    </li>
+    <li>
+      <a href="exercises/05_testing_exercise.html">05 - Package testing</a>
+    </li>
+    <li>
+      <a href="exercises/06_vignettes_exercise.html">06 - Vignettes</a>
+    </li>
+    <li>
+      <a href="exercises/07_final_checks_and_release_exercise.html">07 - Release</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="further_reading.html">Further reading</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/idiv-biodiversity/yDiv_building_packages_Rstudio_GitHub">GitHub</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Further Reading</h1>
+<h4 class="author"></h4>
+<h4 class="date">2023-06-06</h4>
+
+</div>
+
+
+<p>A list of links and literature giving more background on programming
+and package developement in R.</p>
+<div id="official-guides" class="section level1">
+<h1>Official guides</h1>
+<p>The official R website (CRAN) provides a couple of <a
+href="https://cran.r-project.org/manuals.html">manuals</a> and
+especially <a
+href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html">Writing
+R Extensions</a> is of importance when making a new package. Many of the
+standards defined there are already implemented in RStudio but you will
+most certainly encounter one or the other issue that requires you to
+study (a part of) this guide.</p>
+<div id="bioconductor" class="section level2">
+<h2>Bioconductor</h2>
+<p>In case you are working in the life-sciences (with genomic data) you
+may be interested to check out <a
+href="https://www.bioconductor.org/">bioconductor</a>. They define a
+range of standards that are important for software that deals with those
+topics.</p>
+</div>
+</div>
+<div id="advanced-programming-skills" class="section level1">
+<h1>Advanced programming skills</h1>
+<p><a href="https://adv-r.hadley.nz/index.html">Advanced R</a> by Hadley
+Wickham goes deep(er) into R programming, explaining topics that help
+mostly intermediate R programmers.</p>
+<div id="s4" class="section level2">
+<h2>S4</h2>
+<p><em>A (Not So) Short Introduction to S4</em> is a lengthy document
+outlining the concept of "S4". Already the introduction gives some good
+insights into "why object oriented programming (in R)?" <a
+href="https://cran.r-project.org/doc/contrib/Genolini-S4tutorialV0-5en.pdf"
+class="uri">https://cran.r-project.org/doc/contrib/Genolini-S4tutorialV0-5en.pdf</a></p>
+</div>
+</div>
+<div id="r-consortium" class="section level1">
+<h1>R consortium</h1>
+<p>The <a href="https://www.r-consortium.org/">R consortium</a> is a
+relatively young organisation that promotes and supports the R project.
+In case you have a ground-breaking idea for an R package, you can <a
+href="https://www.r-consortium.org/projects/call-for-proposals">apply
+for a grant</a>.</p>
+</div>
+<div id="r-markdown" class="section level1">
+<h1>R markdown</h1>
+<p>Most contents of this course have been created on the basis of <a
+href="https://bookdown.org/yihui/rmarkdown/">R markdown</a>. This is a
+great integration of <a
+href="https://en.wikipedia.org/wiki/Markdown">markdown</a> into R, which
+means that R-code can be run within a markdown document and it is fully
+supported by R-Studio. It enables a set of pretty cool applications, not
+only limited to running R-code, which make the work of each scientist a
+lot easier.</p>
+<div id="extra-documentation" class="section level2">
+<h2>Extra documentation</h2>
+<p>Compile a <a
+href="https://bookdown.org/yihui/rmarkdown/pkgdown.html">website</a> for
+your R package via the R package <a
+href="https://github.com/r-lib/pkgdown">pkgdown</a>.</p>
+</div>
+<div id="website" class="section level2">
+<h2>Website</h2>
+<p>Build your personal or project <a
+href="https://bookdown.org/yihui/rmarkdown/websites.html">website</a>
+via the R package <a
+href="https://github.com/rstudio/blogdown">blogdown</a>.</p>
+</div>
+<div id="articlesbooks" class="section level2">
+<h2>Articles/Books</h2>
+<p>Write your <a
+href="https://bookdown.org/yihui/rmarkdown/journals.html">article</a>
+via the R package <a
+href="https://github.com/rstudio/rticles">rticle</a> or a <a
+href="https://bookdown.org/yihui/rmarkdown/books.html">book</a> via the
+R package <a
+href="https://github.com/rstudio/bookdown">bookdown</a>.</p>
+</div>
+<div id="presentations" class="section level2">
+<h2>Presentations</h2>
+<p>Also your <a
+href="https://bookdown.org/yihui/rmarkdown/presentations.html">presentations</a>
+can be compiled with R-Studio (the presentations of this course have
+been made with revealjs).</p>
+<p>PS: For the sake of workflow-interoperability, you can also compile
+the R markdown documents you will be writing from now on to *.docx, to
+send your manuscript for instance to your supervisor(s) or project
+partners.</p>
+</div>
+<div id="more-git" class="section level2">
+<h2>More git</h2>
+<p>There is the book <a href="https://happygitwithr.com/">Happy Git and
+GitHub for the useR</a>, which deals in depth with git, R and you!</p>
+</div>
+<div id="more-testing" class="section level2">
+<h2>More testing</h2>
+<p>To show to your users that your package works properly and is tested,
+you can use services from other websites that check your code. For
+instance, <a href="https://travis-ci.org/">travis</a> builds your
+package on a range of virtual machines and makes thereby sure that this
+is possible. <a href="https://codecov.io/">codecov</a> scrutinises the
+tests of your package and visualises a “code coverage”, that is, how
+well your code is covered by the tests you wrote. Those are explained in
+<a href="https://r-pkgs.org/" class="uri">https://r-pkgs.org/</a> and
+they have easy to use <code>devtools</code> functions.</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

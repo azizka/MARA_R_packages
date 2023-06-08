@@ -1,0 +1,36 @@
+name: building_r_packages_with_Rstudio_and_GitHub
+output_dir: docs
+navbar:
+  title: Building R-packages with Rstudio and Github
+  type: inverse
+  left:
+  - text: Home
+    icon: fa-home
+    href: index.html
+  - text: Exercises
+    menu:
+    - text: 01 - Package skeleton
+      href: exercises/01_package_skeleton_exercise.html
+    - text: 02 - Data
+      href: exercises/02_data_exercise.html
+    - text: 03 - Functions and documentation
+      href: exercises/03_functions_exercise.html
+    - text: 04 - Building and checks
+      href: exercises/04_building_and_checks_exercise.html
+    - text: 05 - Package testing
+      href: exercises/05_testing_exercise.html
+    - text: 06 - Vignettes
+      href: exercises/06_vignettes_exercise.html
+    - text: 07 - Release
+      href: exercises/07_final_checks_and_release_exercise.html
+
+  - text: Further reading
+    href: further_reading.html
+  right:
+  - text: GitHub
+    href: https://github.com/idiv-biodiversity/yDiv_building_packages_Rstudio_GitHub
+output:
+  html_document:
+    lib_dir: site_libs
+    self_contained: no
+

@@ -1,0 +1,248 @@
+---
+title: "Exercise 3 - Functions and Documentation"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+---
+
+# Introduction
+
+We write functions out of various reasons, the most important of which is to automate frequently used scripts. Scripts may contain many repetitive lines of code that all carry out the same task on a range of different objects. In a function code only needs to be modified once, if needs be, and the instance where that code is called can remain unchanged. When rigurously testing your functions, you can avoid a large set of potential errors due to typos or false specification of arguments in the script.
+
+# Create your first function
+
+## Hello World!
+
+```{r, eval=FALSE}
+use_r(name = "greet")
+#> ✔ Setting active project to '/path/to/myPackage'
+#> ● Modify 'R/greet.R'
+```
+
+Insert and save the following code into the file that just opened
+
+```{r, eval=FALSE}
+greet <- function(whom){
+  out <- paste0("Hello '", whom, "'!")
+  return(out)
+}
+```
+
+Reload the package
+
+```{r, eval=FALSE}
+load_all()
+#> Loading myPackage
+```
+
+And run the function
+
+```{r, eval=FALSE}
+greet(whom = "World")
+#> Hello 'World'!
+```
+
+## Report summary 
+
+However, we want our function to do something more fancy, for instance ...
+
+* make the data of your paper available
+* print summary statistics of those data
+* draw graphics such as boxplots, a scatterplot or a timeline
+* build a function that repeats the model you built in your paper
+* ...
+
+Or, in short, *make the analysis of your paper reproducible*. Lets build, as a first example, a function that reports summary statistics of your dataset. We call this function `report_summary()`.
+
+```{r, eval=FALSE}
+use_r(name = "report_summary")
+#> ✔ Setting active project to '/path/to/myPackage'
+#> ● Modify 'R/report_summary.R'
+```
+
+Start developing the function...
+
+```{r, eval=FALSE}
+report_summary <- function(){
+  
+}
+```
+
+We know that it must have an argument that allows us to specify the object in which the `data` are stored. We want an argument that allows us to select a particular `measure` as summary statistic, for instance median vs. mean and an option to specify whether values that are not available shall be removed (`na.rm`). Moverover, we want the option to include also some `quantiles`.
+
+```{r, eval=FALSE}
+report_summary <- function(data, measure, na.rm = TRUE, quantiles = NULL){
+  
+}
+```
+
+We see that arguments have been specified differently, `na.rm` and `quantiles` contain a default value, but `data` and `measure` do not. This is a convention for signalling to the user of your package that both, `data` and `measure` are required arguments that will fail the function, if not provided by the user but `na.rm` and `quantiles` are already given.
+
+We put together some code-logic that derives the summary statistics.
+
+```{r, eval=FALSE}
+report_summary <- function(data, measure, na.rm = TRUE, quantiles = NULL){
+  
+  if(measure == "mean"){
+    out <- mean(x = data, na.rm = na.rm)
+  } else if(measure == "median"){
+    out <- median(x = data, na.rm = na.rm)  
+  }
+  out <- round(x = out, digits = 2)
+  
+  return(out)
+}
+```
+
+The `if` construction allows to ask for options that are provided or derived in another part of the function. The value of `na.rm`, which is `TRUE` is provided to both, `mean()` and `median()`, so not available values are removed by default. Next, we build code-logic that computes and adds quantiles to the output.
+
+```{r, eval=FALSE}
+report_summary <- function(data, measure, na.rm = TRUE, quantiles = NULL){
+  
+  if(measure == "mean"){
+    out <- mean(x = data, na.rm = na.rm)
+  } else if(measure == "median"){
+    out <- median(x = data, na.rm = na.rm)  
+  }
+  out <- round(x = out, digits = 2)
+  
+  if(!is.null(quantiles)){
+    out <- c(out, quantile(data, probs = quantiles, na.rm = na.rm))
+  }
+  names(out)[1] <- measure
+  
+  return(out)
+}
+```
+
+Here we see the default value of `quantiles` in action. If the user does not provide any quantiles, the argument is `NULL` and computing quantiles is not triggered. We also use the value of `measure` as name for the newly computed summary statistic.
+
+Functions can be nested in one another, however, this should only be done with care (because it can be hard to debug). Above, the function `quantiles()` is nested in `c()`, which means that `c()` will combine the value of `out` with the result of `quantiles()`.
+
+```{r, eval=FALSE}
+load_all()
+#> Loading myPackage
+report_summary(plantTraits$height, measure = "median")
+#> median 
+#>      4 
+report_summary(plantTraits$height, measure = "mean", quantiles = seq(0, 1, 0.2))
+#> mean   0%  20%  40%  60%  80% 100% 
+#> 4.12    1    2    3    4    6    8 
+```
+
+## Your turn
+
+Develop your own function.
+
+# Write a documentation
+
+Now you learn what you need to put together the documentation of your function. This work is largely based on the package `roxygen2`. To signal to this package how the documentation shall look like, you have to write a couple of things by hand and tag them with markup codes. This markup code is a bit like latex, if you know that you will recognise many of the markup codes. For example, to start a list, you'd use the `\itemize{ \item }`-notation, to emphasize a word, you'd write `\emph{a word}` or to make a verbatim code statement, you'd write `\code{greet}`. Check out [this link](https://cran.r-project.org/web/packages/roxygen2/vignettes/formatting.html) for a complete documentation.
+
+
+Back in the tab that shows your function, insert a roxygen skeleton, via *Code > Insert Roxygen Skeleton*. The file `greet.R` would then look as follows.
+
+```{r}
+#' Title
+#'
+#' @param whom 
+#'
+#' @return 
+#' @export
+#'
+#' @examples
+
+greet <- function(whom){
+  message(paste0("Hello '", whom, "'!"))
+}
+```
+
+## Arguments
+
+`@param` documents the functions parameters, or *arguments* in R terminology.
+There are no real conventions on how an argument shall be defined, however, since the `checkmate` package is around, some authors include information about the nature of the argument. Here, the type of argument, which would be expected by the test/assert-functions of `checkmate`, is explicitly mentioned.
+
+```{r}
+#' @param whom [\code{character(1)}]\cr The person/entity that shall be greeted.
+
+```
+
+This documentation would show up as in [this link](https://mllg.github.io/checkmate/reference/checkCharacter.html#arguments). It makes clear that the argument is supposed to be a `character` vector with length 1.
+
+## Function output
+
+`@return` typically documents a very brief description of what is being returned by the function. This does not document how the object has been derived but really merely what the object is.
+
+## Export
+
+`@export` is a switch that is picked up by `roxygen2` to update the namespace, i.e., it signals that this function shall be exported into the R ecosystem (and thus be available publicly to other users).
+
+## Examples
+
+`@examples` showcases how the function works. Those examples are mostly for the humans that are supposed to understand and use your function. However, as we see later, they are also taken to check and validate the package.
+
+## Other fields
+
+`@details` Supply additional information that are required to understand your function. Often this is where it lacks, even in popular packages, so try to get into the habbit of properly explaining also "obvious" things.
+
+`@section Something more` Adds the section `Something more` to your documentation. Everything in this line is the title and the text starts in the next line.
+
+`@format` is typically used to document datasets and gives an overview of the data structure.
+
+`@importFrom checkmate assertCharacter assertNames` informs `roxygen` that the functions `assertCharacter` and `assertNames` shall be imported from the package `checkmate`. We recommend that you document all non-base functions that are imported in your custom function, even if that would mean duplicated `@importFrom` statements for several functions. This ensures that you don't forget to import anything and avoids debugging you would not understand easily at the beginning.
+
+There are some more tags that are not discussed here, see [this link](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html) for more.
+
+## Update documentation
+
+Fill in the following information into the documentation of `greet.R`.
+
+
+```{r}
+#' Kindly greet the first user of your package
+#'
+#' @param whom [\code{character(1)}]\cr The person/entity that shall be greeted.
+#'
+#' @return Character string that greets.
+#' @export
+#'
+#' @examples
+#' # greet the world ...
+#' greet(whom = "World")
+#'
+#' # ... or a range of numbers
+#' greet(c(1, 2, 3, 4))
+
+greet <- function(whom){
+  message(paste0("Hello '", whom, "'!"))
+}
+```
+
+And build the documentation
+
+```{r, eval=FALSE}
+document()
+#> Updating myPackage documentation
+#> Updating roxygen version in /path/to/myPackage/DESCRIPTION
+#> Writing NAMESPACE
+#> Loading myPackage
+#> Writing NAMESPACE
+#> Writing greet.Rd
+```
+
+Apparently `NAMESPACE` has been modified, that warrants that we check it out. It should contain now:
+
+```{r, eval=FALSE}
+# Generated by roxygen2: do not edit by hand
+
+export(greet)
+```
+
+We see that it contains a note and a single command. The note is to be taken seriously! If things in `NAMESPACE` are not as they are supposed to be, everything breaks. So keep your fingers off of that unless you consider yourself professional enough to mess around. The command says that the function `greet` shall be exported, as expected, because we have set the `@export` tag above.
+
+
+With `?greet` or `help(greet)` you can view the documentation you just wrote and built. In case you don't like anything about it, revise the text and rebuild the documentation via `document()`.
+
+## Your turn
+
+Document the function you just developed in the previous chapter.

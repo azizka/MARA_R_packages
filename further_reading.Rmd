@@ -1,0 +1,60 @@
+---
+title: "Further Reading"
+author: ""
+date: "`r Sys.Date()`"
+output:
+  html_document: default
+---
+
+A list of links and literature giving more background on programming and package developement in R.
+
+# Official guides
+
+The official R website (CRAN) provides a couple of [manuals](https://cran.r-project.org/manuals.html) and especially [Writing R Extensions](https://cran.r-project.org/doc/manuals/r-release/R-exts.html) is of importance when making a new package. Many of the standards defined there are already implemented in RStudio but you will most certainly encounter one or the other issue that requires you to study (a part of) this guide.
+
+## Bioconductor
+
+In case you are working in the life-sciences (with genomic data) you may be interested to check out [bioconductor](https://www.bioconductor.org/). They define a range of standards that are important for software that deals with those topics.
+
+# Advanced programming skills
+
+[Advanced R](https://adv-r.hadley.nz/index.html) by Hadley Wickham goes deep(er) into R programming, explaining topics that help mostly intermediate R programmers.
+
+## S4
+
+*A (Not So) Short Introduction to S4* is a lengthy document outlining the concept of \"S4\". Already the introduction gives some good insights into \"why object oriented programming (in R)?\" https://cran.r-project.org/doc/contrib/Genolini-S4tutorialV0-5en.pdf
+
+# R consortium
+
+The [R consortium](https://www.r-consortium.org/) is a relatively young organisation that promotes and supports the R project. In case you have a ground-breaking idea for an R package, you can [apply for a grant](https://www.r-consortium.org/projects/call-for-proposals).
+
+# R markdown
+
+Most contents of this course have been created on the basis of [R markdown](https://bookdown.org/yihui/rmarkdown/). This is a great integration of [markdown](https://en.wikipedia.org/wiki/Markdown) into R, which means that R-code can be run within a markdown document and it is fully supported by R-Studio. It enables a set of pretty cool applications, not only limited to running R-code, which make the work of each scientist a lot easier.
+
+## Extra documentation
+
+Compile a [website](https://bookdown.org/yihui/rmarkdown/pkgdown.html) for your R package via the R package [pkgdown](https://github.com/r-lib/pkgdown).
+
+## Website
+
+Build your personal or project [website](https://bookdown.org/yihui/rmarkdown/websites.html) via the R package [blogdown](https://github.com/rstudio/blogdown).
+
+## Articles/Books
+
+Write your [article](https://bookdown.org/yihui/rmarkdown/journals.html) via the R package [rticle](https://github.com/rstudio/rticles) or a [book](https://bookdown.org/yihui/rmarkdown/books.html) via the R package [bookdown](https://github.com/rstudio/bookdown).
+
+## Presentations
+
+Also your [presentations](https://bookdown.org/yihui/rmarkdown/presentations.html) can be compiled with R-Studio (the presentations of this course have been made with revealjs).
+
+
+PS: For the sake of workflow-interoperability, you can also compile the R markdown documents you will be writing from now on to *.docx, to send your manuscript for instance to your supervisor(s) or project partners.
+
+## More git
+
+There is the book [Happy Git and GitHub for the useR](https://happygitwithr.com/), which deals in depth with git, R and you!
+
+## More testing
+
+To show to your users that your package works properly and is tested, you can use services from other websites that check your code. For instance, [travis](https://travis-ci.org/) builds your package on a range of virtual machines and makes thereby sure that this is possible. [codecov](https://codecov.io/) scrutinises the tests of your package and visualises a "code coverage", that is, how well your code is covered by the tests you wrote. Those are explained in https://r-pkgs.org/ and they have easy to use ` devtools` functions.

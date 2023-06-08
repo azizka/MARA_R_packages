@@ -1,0 +1,185 @@
+---
+title: "Exercise 5 - Testing"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+
+---
+
+# Introduction
+
+We have learned from the previous exercise how to run automated checks for when the package is built. Those checks ensure that the package is a viable package, with respect to metadata and how the package is set up. However, they do not ensure out of the box that the functions in this package are unambiguous in their arguments and that the output is what is expected under all circumstances.
+
+# Include assertions in function
+
+The description of arguments could be misunderstood by some users of your function. In most cases where an argument has been mis-specified, the function would fail. You have probably experienced it yourself that many error messages in R are pretty cumbersome and mostly not easy to understand.
+
+```{r, eval=FALSE}
+report_summary(data = iris, measure = "median")
+#> Error in median.default(x = data, na.rm = na.rm) : need numeric data
+#
+# "what is that supposed to mean, I provided 'numeric data'!?"
+
+report_summary(data = iris$Sepal.Length, measure = "sd")
+#> Error in report_summary(iris$Sepal.Length, measure = "sd") : 
+#>   object 'out' not found
+#
+# "why the hell didn't it find 'out'?"
+```
+
+However, there may be cases where the function results nevertheless in a sensible output, at least at first sight. For those reasons we should make sure that arguments are properly specified, with the help of the R package `checkmate`.
+
+```{r, eval=FALSE}
+report_summary <- function(data, measure, na.rm = TRUE, quantiles = NULL){
+  
+  assertVector(x = data, strict = TRUE)
+  assertChoice(x = measure, choices = c("mean", "median"))
+  assertLogical(x = na.rm, any.missing = FALSE, len = 1)
+  assertNumeric(x = quantiles, lower = 0, upper = 1, any.missing = FALSE, null.ok = TRUE)
+  
+  if(measure == "mean"){
+    out <- mean(x = data, na.rm = na.rm)
+  } else if(measure == "median"){
+    out <- median(x = data, na.rm = na.rm)  
+  }
+  out <- round(x = out, digits = 2)
+  
+  if(!is.null(quantiles)){
+    out <- c(out, quantile(data, probs = quantiles, na.rm = na.rm))
+  }
+  names(out)[1] <- c(measure)
+  
+  return(out)
+}
+```
+
+In the `assert*` functions we define expectations about the arguments. If those are not fulfilled, an informative error message is printed.
+
+The additional effort we put into documenting arguments, those text-fileds that inform the user about the *nature of the argument*, are supposed to co-evolve with the `assert*` functions and reflect in some way the information asserted here. For example, for this function one should mention that `data` must be a single vector or that `measures` can either be `"mean"` or `"median"`.
+
+
+```{r, eval=FALSE}
+load_all()
+report_summary(data = iris, measure = "median")
+#> Error in report_summary(iris, measure = "median") : 
+#>   Assertion on 'data' failed: Must be of type 'vector', not 'data.frame'.
+
+report_summary(data = iris$Sepal.Length, measure = "sd")
+#> Error in report_summary(iris$Sepal.Length, measure = "sd") : 
+#>   Assertion on 'measure' failed: Must be element of set {'mean','median'}, but is 'sd'.
+```
+
+## Your turn
+
+Assert that the arguments of your function are passed correctly into the function.
+
+
+# Set up unit-testing
+
+When writing functions you would test them all the time informally, for instance, by setting `measures = "mean"`, running the if construction and checking whether `out` is what you have expected.
+
+Those tests can be carried out formally by writing unit-tests. First, we set up the testing framework which is placed in the folder `tests` at the root directory of the package.
+
+```{r, eval=FALSE}
+use_testthat()
+#> ✔ Adding 'testthat' to Suggests field in DESCRIPTION
+#> ✔ Creating 'tests/testthat/'
+#> ✔ Writing 'tests/testthat.R'
+#> ● Call `use_test()` to initialize a basic test file and open it for editing.
+```
+
+We would then create tests for each specific function via `use_test()`, as suggested by `use_testthat()`.
+
+```{r, eval=FALSE}
+use_test("greet")
+#> ✔ Increasing 'testthat' version to '>= 2.1.0' in DESCRIPTION
+#> ✔ Writing 'tests/testthat/test-greet.R'
+#> ● Modify 'tests/testthat/test-greet.R'
+```
+
+This creates and opens the file `test_greet.R`, into which we would write test. Tests are organised into units of similar functionality. Each test requires that particular objects are provided to the function to test and to compare the output to an expectation.
+
+For instance, the first test that is initiated in `test-greet.R` by default is
+
+```{r, eval=FALSE}
+test_that("multiplication works", {
+  expect_equal(object = 2 * 2, expected = 4)
+})
+```
+
+The `testthat` package already provides a range of `expect_*` functions and that is extended by the functions in the `checkmate` package. For the `greet()` functions we may want to test that the output is really a character string of length one that includes the word `Hello`. We would replace the recently present test with:
+
+```{r, eval=FALSE}
+test_that("output is a character string", {
+  out <- greet(whom = "World")
+  expect_character(x = out, len = 1, pattern = "Hello.*!")
+})
+```
+
+For the `report_summary()` function we'd also have to define a range of tests
+
+```{r, eval=FALSE}
+use_test("report_summary")
+#> ✔ Writing 'tests/testthat/test-report_summary.R'
+#> ● Modify 'tests/testthat/test-report_summary.R'
+```
+
+Here we have more things to test. First of all, we need to make sure that the output is in fact what would be expected from the function. We have two "units", first that the output is in fact a numeric vector and secondly that the correct quantiles are computed.
+
+```{r, eval=FALSE}
+test_that("output is numeric vector", {
+  data(iris)
+  out <- report_summary(iris$Sepal.Length, measure = "mean")
+  expect_numeric(x = out, any.missing = FALSE)
+})
+
+test_that("the correct quantiles are computed", {
+  data(iris)
+  quantiles <- c(0.2, 0.5, 0.75)
+  out <- report_summary(iris$Sepal.Length, measure = "mean", quantiles = quantiles)
+  expect_names(x = names(out), must.include = c("mean", paste0(quantiles*100, "%")))
+})
+```
+
+Third, we would make sure that deliberately mis-specifying the arguments actually gives an error message.
+
+```{r, eval=FALSE}
+test_that("errors when false input", {
+  # test data.frame as input
+  expect_error(object = report_summary(iris, measure = "mean"))
+  # test false measure
+  expect_error(object = report_summary(iris$Sepal.Length, measure = "sd"))
+  # test false na.rm value
+  expect_error(object = report_summary(iris$Sepal.Length, measure = "mean", na.rm = "bla"))
+  # test false quantiles
+  expect_error(object = report_summary(iris$Sepal.Length, measure = "mean", quantiles = "bla"))
+})
+```
+
+We do not need to run those tests in the console, even though we could. They would ideally not show any output, because those functions do either complain about an unexpected behaviour, or do not output anything at all.
+
+We run the tests simply via
+
+```{r, eval=FALSE}
+test()
+#> Loading myPackage
+#> Testing myPackage
+#> ✔ |  OK F W S | Context
+#> ✔ |   1       | greet
+#> ✔ |   7       | report_summary
+#> 
+#> ══ Results ═════════════════════════════════════════════════════════════════════════════════════════════════
+#> OK:       8
+#> Failed:   0
+#> Warnings: 0
+#> Skipped:  0
+```
+
+Which shows that there were 8 tests that all performed as expected.
+
+## Your turn
+
+Write tests that make sure you function overall behaves as expected and write some tests that ensure that deliberately false values actually give error messages.
+
+

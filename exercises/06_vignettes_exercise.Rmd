@@ -1,0 +1,47 @@
+---
+title: "Exercise 6 - Vignettes"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+---
+
+# Introduction
+
+Vignettes are a R's version of longer format documentation. You can for example use them to demonstrate an example workflow. The major difference of vignettes to the function help is, that you do not need to know any function name, but the vignette will instead explain how to use your package to solve a particular problem. 
+
+# Markdown
+You can write vignettes relatively easily in R Markdown, which is basically a version of markdown which can directly include code. Markdown is a really easy language to learn and it will not take you more than 5 minutes to understand the basic way it works. You can find a really helpful summary in this [cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf).
+
+# Exercises
+
+## 1. Create a R markdown file
+You can create the file with usethis::use_vignette("YOUR_VIGNETTE_NAME"). This will create a vignette folder in your package directory and the RMmarkdown file of the vignette inside. You can now start to edit it.
+
+## 2. Write a short vignette including code from your package
+THere are no hard limitations on the content and size of vignettes, and the relation of code and text. Try to take a users perspective, and make it as easy as possible to understand how to use your package for someone who has no knowledge of it. If you have questions on markdown beyond the demo, have a look at the [cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) or the respective [book chapter](http://r-pkgs.had.co.nz/vignettes.html).
+
+
+## 3. Done
+
+
+<!-- # Demo -->
+<!-- usethis::use_vignette("uses_genus") -->
+
+<!-- # Introduction -->
+
+<!-- ```{r setup} -->
+
+<!-- ``` -->
+
+<!-- # Plotting traditional use per genus -->
+
+
+<!-- ```{r, fig.width = 10} -->
+<!-- plot_use("Combretum") -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- plot_organ("Ziziphus") -->
+<!-- ``` -->
+

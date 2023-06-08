@@ -1,0 +1,75 @@
+---
+title: "Exercise 7 - Release"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+---
+
+# Introduction
+The major reason to invest time and effort to wrap your code in a package is to distribute it and make it available to a broader user base. Nowadays, there are two main pipelines to distribute R packages GitHub and the Comprehensive R Archive Network (CRAN).
+
+# Exercises
+
+## 1. Github release
+Distributing code via GitHub comes with few formal requirements and is straightforward. All you need to do is to create a release via tagging the current version of your repository with a version as a release. To do so, got to GitHub and click on the release link in the center of your repository. This will guide you to a form where you can follow the instructions to create a release.
+
+## 2. CRAN
+The best way to distribute an R package is via CRAN. CRAN has the advantage, that the packages hosted there are very easily accessible (via `install.packages`), and that it guarantees a high quality standard. There are currently about 15,000 packages on CRAN. 
+
+There are two important things to keep in mind when considering to submit a package to CRAN are that 1. CRAN is stuffed by volunteers with a high work load and 2. that your package must conform with the [CRAN policies](https://cran.r-project.org/web/packages/policies.html) and the guidelines of [writing R extensions](https://cran.r-project.org/doc/manuals/r-release/R-exts.html), and pass a relatively high quality threshold, which can mean considerable amounts of additional work for you as a developer. Therefore, think carefully if you want to submit your package to CRAN.
+
+Once you decided to do so, do the following:
+
+1. Run `check()` and `build()` as practiced in the previous exercises, and make sure you fixed all errors, warnings and notes.
+
+2. Read the respective chapter of [Hadley Wickham's book on releasing R packages](http://r-pkgs.had.co.nz/)
+
+3. Create the news.md and cran-comments.md files
+
+4. Submit the package. You can do this by generating a binary build and submitting it via the CRAN webpage], however, I suggest to use `devtools::release` instead. This function guides you through the submission process step by step and runs additional checks to make sure, that your package meets CRAN requirements. For this exercise, we will run `devtools::release` to a certain point,  but, **IMPORTANT make sure not to complete the final step, since we DO not want to submit our packages to CRAN for now**.
+
+<!-- # Demo -->
+
+<!-- # Go to github and show how to do a release -->
+
+<!-- #CRAN -->
+
+<!-- ## NEWS.md -->
+<!-- open a the news.md from coordinate cleaner -->
+
+
+<!-- ## cran_comments.md -->
+
+<!-- ``` -->
+<!-- ## Test environments -->
+<!-- * local OS X install, R 3.1.2 -->
+<!-- * ubuntu 12.04 (on travis-ci), R 3.1.2 -->
+<!-- * win-builder (devel and release) -->
+
+<!-- ## R CMD check results -->
+<!-- There were no ERRORs or WARNINGs. -->
+
+<!-- There was 1 NOTE: -->
+
+<!-- * checking dependencies in R code ... NOTE -->
+<!--   Namespace in Imports field not imported from: 'R6' -->
+
+<!--   R6 is a build-time dependency. -->
+
+<!-- ## Downstream dependencies -->
+<!-- I have also run R CMD check on downstream dependencies of httr -->
+<!-- (https://github.com/wch/checkresults/blob/master/httr/r-release). -->
+<!-- All packages that I could install passed except: -->
+
+<!-- * Ecoengine: this appears to be a failure related to config on -->
+<!--   that machine. I couldn't reproduce it locally, and it doesn't -->
+<!--   seem to be related to changes in httr (the same problem exists -->
+<!--   with httr 0.4). -->
+<!-- ``` -->
+
+<!-- ## Release -->
+
+<!-- release() -->
+
+
