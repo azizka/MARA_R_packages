@@ -54,11 +54,11 @@ Please:
 
 * Read chapters 2, 6-10 and 16 of this free online book: https://r-pkgs.org/. 
 
-Please do not hesitate to [contact us](mailto:zizka.alexander@gmail.com) if you have any questions.
+Please do not hesitate to [contact us](mailto:alexander.zizka@biologie.uni-marburg.de) if you have any questions.
 
 
 # Objectives
-After this course, students will be able to
+After this course, you will be able to
 
 1. understand the structure of R-packages and their main elements	
 2. use up-to-date methodology to provide R code and data as R-package
