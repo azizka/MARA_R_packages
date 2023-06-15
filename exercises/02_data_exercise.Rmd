@@ -31,7 +31,6 @@ For this course, chose one (or multiple) datasets from your own research as exam
 
 ## 1. Load data into R
 Load your example dataset into R, using the appropriate functions. Remember that you must import any functions and classes needed to load the data and add the respective packages to the imports section of the DESCRIPTION file. For instance if  you want to load shape files you need to add the `sf` package.
-test-cahnge 
 
 For the plant traits dataset, you can use for example `read.csv`.
 
@@ -43,7 +42,7 @@ plt_trait <- read.csv("example_data/plantTraits.csv")
 Make sure the dataset has the format you want and check that the R object is named as you want.
 
 ## 3. Save data as .rda to the data/ folder
-Now, save the dataset in the data/ folder of your package as an .rda file using `save`.
+Now, save the dataset in the data/folder of your package as an .rda file using `save`.
 
 ```{r, eval = FALSE}
 use_data(plt_trait)

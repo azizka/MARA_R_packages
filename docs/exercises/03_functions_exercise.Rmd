@@ -8,11 +8,12 @@ output:
 
 # Introduction
 
-We write functions out of various reasons, the most important of which is to automate frequently used scripts. Scripts may contain many repetitive lines of code that all carry out the same task on a range of different objects. In a function code only needs to be modified once, if needs be, and the instance where that code is called can remain unchanged. When rigurously testing your functions, you can avoid a large set of potential errors due to typos or false specification of arguments in the script.
+Functions are at the core of Rs functionality and can serve different purposes.Most importantly they automate frequently used scripts and code chunks. Scripts may contain many repetitive lines of code that carry out the same task on a range of different objects. In a function code only needs to be modified once and subsequently all other instances using this calling this code can remain unchanged. When rigorously testing your functions, you can avoid a large set of potential errors due to typos or false specification of arguments in the script.
 
 # Create your first function
 
 ## Hello World!
+The `use_r` function generates the function templates.
 
 ```{r, eval=FALSE}
 use_r(name = "greet")
@@ -43,9 +44,7 @@ greet(whom = "World")
 #> Hello 'World'!
 ```
 
-## Report summary 
-
-However, we want our function to do something more fancy, for instance ...
+Usually, functions perform more complicated tasks, for instance:
 
 * make the data of your paper available
 * print summary statistics of those data
@@ -53,7 +52,7 @@ However, we want our function to do something more fancy, for instance ...
 * build a function that repeats the model you built in your paper
 * ...
 
-Or, in short, *make the analysis of your paper reproducible*. Lets build, as a first example, a function that reports summary statistics of your dataset. We call this function `report_summary()`.
+In short, function can *make the analysis of your paper reproducible*. Lets build, as a first example, a function that reports summary statistics of your dataset. We call this function `report_summary()`.
 
 ```{r, eval=FALSE}
 use_r(name = "report_summary")
@@ -69,7 +68,7 @@ report_summary <- function(){
 }
 ```
 
-We know that it must have an argument that allows us to specify the object in which the `data` are stored. We want an argument that allows us to select a particular `measure` as summary statistic, for instance median vs. mean and an option to specify whether values that are not available shall be removed (`na.rm`). Moverover, we want the option to include also some `quantiles`.
+We know that it must have an argument that allows us to specify the object in which the `data` are stored. We want an argument that allows us to select a particular `measure` as summary statistic, for instance median vs. mean and an option to specify whether values that are not available shall be removed (`na.rm`). Moreover, we want the option to include also some `quantiles`.
 
 ```{r, eval=FALSE}
 report_summary <- function(data, measure, na.rm = TRUE, quantiles = NULL){
@@ -133,14 +132,11 @@ report_summary(plantTraits$height, measure = "mean", quantiles = seq(0, 1, 0.2))
 
 ## Your turn
 
-Develop your own function.
+Develop your own function(s).
 
 # Write a documentation
 
-Now you learn what you need to put together the documentation of your function. This work is largely based on the package `roxygen2`. To signal to this package how the documentation shall look like, you have to write a couple of things by hand and tag them with markup codes. This markup code is a bit like latex, if you know that you will recognise many of the markup codes. For example, to start a list, you'd use the `\itemize{ \item }`-notation, to emphasize a word, you'd write `\emph{a word}` or to make a verbatim code statement, you'd write `\code{greet}`. Check out [this link](https://cran.r-project.org/web/packages/roxygen2/vignettes/formatting.html) for a complete documentation.
-
-
-Back in the tab that shows your function, insert a roxygen skeleton, via *Code > Insert Roxygen Skeleton*. The file `greet.R` would then look as follows.
+A major advantage of R is the clear and standardized documentation of functions. This documentation is mandatory for packages on CRAN. Putting together informative function documentation and working examples is some work, but with the help of the `roxygen2` straightforward. `roxygen2` uses markup to structure function documentation. marup is similar to latex, if you know latex, you will recognise many instances of the markup codes. To generate the documentation for a function insert a roxygen skeleton to your function file via *Code > Insert Roxygen Skeleton*. The file `greet.R` would then look as follows.
 
 ```{r}
 #' Title

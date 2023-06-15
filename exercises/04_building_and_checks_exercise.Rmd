@@ -8,7 +8,7 @@ output:
 
 # Introduction
 
-Building and checking are two essential steps to finalize your R package. Building means converting your package into a .tar file ("Tape ARchiver" or "tarball") which converts the folder structure of your package into a single file which can easily be read by machines and distributed. Checking means tuning a set of tests on your package, ensuring, that it follows R package conventions, is portable across platforms and does not cause problems or damage to the users.
+Building and checking are two essential steps to finalize your R-package. *Building* means converting your package into a .tar file ("Tape ARchiver" or "tarball") which converts the folder structure of your package into a single file which can easily be read by machines and distributed. *Checking* means running a set of tests on your package, ensuring, that it follows R package conventions, is portable across platforms and does not cause problems or damage to the users.
 
 # Exercises
 
@@ -22,7 +22,7 @@ build(".")
 ```
 
 ## 2. Check the package
-If the building worked, it is now time to put your code under scrutiny. To do so, we will first run R CMD check on your package. You can either do that using the build tab in Rstudio or `check`. This will run a large sets of different checks and prompt a message if the test was passed or what the problems are. The error messages of check are extremely useful to find problems in your code and make sure the package is set up alright. If you find any error messages, go back to the respective files in the 'R/' or 'data' folder and fix them. then repeat the check.
+If the building worked, it is now time to put your code under scrutiny. To do so, we will first run `R CMD check` on your package. You can either do that using the build tab in Rstudio or `check`. This will run a large sets of different checks and prompt a message if the check was passed or what the problems are. The error messages of checks are extremely useful to find problems in your code and your primary tool to make sure the package is on a good way to be distributed. If you find any error messages, go back to the respective files in the 'R/' or 'data' folder and fix them. Then repeat the check.
 
 ```{r, eval = FALSE}
 check(".")
@@ -30,7 +30,7 @@ check(".")
 
 ## 3. Tidy code and goodpractice
 
-On top of `check` we will run two additional test to make sure the code of your package is readable and does not cause problems. First, we will run the spellcheck function of the `devtools` package, to check the documentation of your package. 
+On top of `check` we will run two additional test to make sure the code of your package is readable and does not cause problems. First, we will run the `spell_check` function of the devtools package, to check the documentation of your package. 
 
 ```{r, eval = FALSE}
 spell_check()
