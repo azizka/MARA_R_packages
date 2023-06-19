@@ -342,6 +342,8 @@ The datasets distributed with the package. Can be example data or the purpose of
 
 [Can be any object that can be loaded into R such as tables, shape files, ...]{style="color: grey;"}
 
+. . .
+
 ```{r}
 #| echo: true
 
@@ -354,6 +356,8 @@ taxonomy_traits
 The code (functions) provided via your package.
 
 [In packages code is distributed as functions. Functions are objects just as variables.]{style="color: grey;"}
+
+. . .
 
 ::: {.panel-tabset}
 
@@ -513,6 +517,8 @@ get_range <- function(scientific = NULL, canonical = NULL, genus = NULL,
 
 The documentation of your code. One file per function.
 
+. . .
+ 
 ```{r}
 #| echo: true
 #| eval: false
