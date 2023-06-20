@@ -8,7 +8,7 @@ output:
 
 # Introduction
 
-Many R packages contain data on top of code an functions, mostly either as example data for the help files and vignettes, or because there purpose is to distribute data ("data packages"). Data packages can be useful to distribute commonly used datasets for instance for teaching, as compliment to other packages or as supplement to scientific papers. Examples for data packages include [carData](https://cran.r-project.org/web/packages/carData/index.html) which includes different data tables and the [rnaturalearth](https://cran.r-project.org/web/packages/rnaturalearth/README.html), which distributes gazetteers of global country borders, cities, coastlines and others from www.naturalearth.org.
+Many R packages contain data on top of code and functions, mostly either as example data for the help files and vignettes, or because their purpose is to distribute data ("data packages"). Data packages can be useful to distribute commonly used datasets for instance for teaching, as compliment to other packages or as supplement to scientific papers. Examples for data packages include [carData](https://cran.r-project.org/web/packages/carData) which includes different data tables and the [rnaturalearth](https://cran.r-project.org/web/packages/rnaturalearth/), which distributes gazetteers of global country borders, cities, coastlines and others from www.naturalearth.org.
 
 # Which data to distribute in a package
 You can put any data into an package that can be loaded into R and saved as a '.rda' file. The most common format are tables saved as `data.frame`. In practice, the size of the data can be a limiting factor. CRAN packages usually should be smaller than 5 MB and packages larger than 20 MB are inconvenient to distribute, also via GitHub. But this already corresponds to table with many thousand entries.
@@ -45,7 +45,7 @@ Make sure the dataset has the format you want and check that the R object is nam
 Now, save the dataset in the data/folder of your package as an .rda file using `save`.
 
 ```{r, eval = FALSE}
-use_data(plt_trait)
+usethis::use_data(plt_trait)
 ```
 
 ## 4. Data documentation
