@@ -8,7 +8,7 @@ output:
 
 # Introduction
 
-Functions are at the core of Rs functionality and can serve different purposes.Most importantly they automate frequently used scripts and code chunks. Scripts may contain many repetitive lines of code that carry out the same task on a range of different objects. In a function code only needs to be modified once and subsequently all other instances using this calling this code can remain unchanged. When rigorously testing your functions, you can avoid a large set of potential errors due to typos or false specification of arguments in the script.
+Functions are at the core of Rs functionality and can serve different purposes. Most importantly they automate frequently used scripts and code chunks. Scripts may contain many repetitive lines of code that carry out the same task on a range of different objects. In a function code only needs to be modified once and subsequently all other instances using this calling this code can remain unchanged. When rigorously testing your functions, you can avoid a large set of potential errors due to typos or false specification of arguments in the script.
 
 # Create your first function
 
@@ -16,9 +16,8 @@ Functions are at the core of Rs functionality and can serve different purposes.M
 The `use_r` function generates the function templates.
 
 ```{r, eval=FALSE}
-use_r(name = "greet")
-#> ✔ Setting active project to '/path/to/myPackage'
-#> ● Modify 'R/greet.R'
+usethis::use_r(name = "greet")
+# • Modify 'R/greet.R'
 ```
 
 Insert and save the following code into the file that just opened
@@ -33,8 +32,8 @@ greet <- function(whom){
 Reload the package
 
 ```{r, eval=FALSE}
-load_all()
-#> Loading myPackage
+devtools::load_all()
+# > Loading myPackage
 ```
 
 And run the function
@@ -55,9 +54,8 @@ Usually, functions perform more complicated tasks, for instance:
 In short, function can *make the analysis of your paper reproducible*. Lets build, as a first example, a function that reports summary statistics of your dataset. We call this function `report_summary()`.
 
 ```{r, eval=FALSE}
-use_r(name = "report_summary")
-#> ✔ Setting active project to '/path/to/myPackage'
-#> ● Modify 'R/report_summary.R'
+usethis::use_r(name = "report_summary")
+# > ● Modify 'R/report_summary.R'
 ```
 
 Start developing the function...
@@ -120,7 +118,7 @@ Here we see the default value of `quantiles` in action. If the user does not pro
 Functions can be nested in one another, however, this should only be done with care (because it can be hard to debug). Above, the function `quantiles()` is nested in `c()`, which means that `c()` will combine the value of `out` with the result of `quantiles()`.
 
 ```{r, eval=FALSE}
-load_all()
+devtools::load_all()
 #> Loading myPackage
 report_summary(plantTraits$height, measure = "median")
 #> median 
@@ -217,7 +215,7 @@ greet <- function(whom){
 And build the documentation
 
 ```{r, eval=FALSE}
-document()
+devtools::document()
 #> Updating myPackage documentation
 #> Updating roxygen version in /path/to/myPackage/DESCRIPTION
 #> Writing NAMESPACE
