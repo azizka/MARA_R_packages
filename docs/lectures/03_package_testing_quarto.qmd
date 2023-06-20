@@ -22,27 +22,26 @@ library(checkmate)
 ## What is "testing"
 
 ::: incremental
-1. checks
-2. assertions
-3. tests
+1.  checks
+2.  assertions
+3.  tests
 :::
-
 
 ## 1. checks
 
 `devtools::check()`
 
-. . . 
+. . .
 
 <br>
 
 run a range of diagnostic checks to ensure validity of the package (setup, metadata)
 
-. . . 
+. . .
 
 make sure that examples can be run
 
-. . . 
+. . .
 
 however ...
 
@@ -55,7 +54,7 @@ greet <- function(whom){
 }
 ```
 
-. . . 
+. . .
 
 <br>
 
@@ -63,7 +62,7 @@ greet <- function(whom){
 aList <- list(people = c("Amelie", "Peter"), animals = c("my cat"))
 ```
 
-. . . 
+. . .
 
 <br>
 
@@ -99,7 +98,7 @@ report_summary <- function(data, measure, na.rm = TRUE,
 report_summary(data = iris, measure = "median")
 ```
 
-. . . 
+. . .
 
 <br>
 
@@ -111,22 +110,21 @@ report_summary(data = iris$Sepal.Length, measure = "sd")
 
 `checkmate::assert*()`
 
-. . . 
+. . .
 
 <br>
 
 make sure that arguments fullfil a set of expectations, otherwise throw an error.
 
-. . . 
+. . .
 
 standardised interface, where specific argument types require specific options.
 
-
 ## 2. assertions
 
-`assertVector` -> Check if an argument is a vector
+`assertVector` -\> Check if an argument is a vector
 
-. . . 
+. . .
 
 ```{r, error=TRUE}
 data <- iris
@@ -143,9 +141,9 @@ assertVector(x = data, strict = TRUE)
 
 ## 2. assertions
 
-`assertChoice` -> Check if an object is an element of a given set
+`assertChoice` -\> Check if an object is an element of a given set
 
-. . . 
+. . .
 
 ```{r, error=TRUE}
 measure <- NULL
@@ -163,9 +161,9 @@ assertChoice(x = measure, choices = c("mean", "median"), null.ok = TRUE)
 
 ## 2. assertions
 
-`assertLogical` -> Check if an argument is a vector of type logical
+`assertLogical` -\> Check if an argument is a vector of type logical
 
-. . . 
+. . .
 
 ```{r, error=TRUE}
 na.rm <- NA
@@ -182,9 +180,9 @@ assertLogical(x = na.rm, any.missing = FALSE)
 
 ## 2. assertions
 
-`assertNumeric` -> Check that an argument is a vector of type numeric
+`assertNumeric` -\> Check that an argument is a vector of type numeric
 
-. . . 
+. . .
 
 ```{r, error=TRUE}
 quantiles <- c(0, 0.5, NA, 2)
@@ -200,16 +198,17 @@ quantiles <- c(0, 0.5, 2)
 assertNumeric(x = quantiles, lower = 0, upper = 1, any.missing = FALSE)
 ```
 
-
-
 ## 2. assertions
-```{r, include=FALSE}
-report_summary <- function(data, measure, na.rm = TRUE, quantiles = NULL){
+
+```{r}
+report_summary <- function(data, measure, na.rm = TRUE, 
+                           quantiles = NULL){
   
   assertVector(x = data, strict = TRUE)
   assertChoice(x = measure, choices = c("mean", "median"))
   assertLogical(x = na.rm, any.missing = FALSE, len = 1)
-  assertNumeric(x = quantiles, lower = 0, upper = 1, any.missing = FALSE, null.ok = TRUE)
+  assertNumeric(x = quantiles, lower = 0, upper = 1, 
+                any.missing = FALSE, null.ok = TRUE)
   
   if(measure == "mean"){
     out <- mean(x = data, na.rm = na.rm)
@@ -227,6 +226,8 @@ report_summary <- function(data, measure, na.rm = TRUE, quantiles = NULL){
 }
 ```
 
+## 2. assertions
+
 ```{r, error=TRUE}
 report_summary(data = iris, measure = "median")
 ```
@@ -243,11 +244,11 @@ report_summary(data = iris$Sepal.Length, measure = "sd")
 
 initiate testing with `usethis::use_testthat()` <br>
 
-. . . 
+. . .
 
 make a test with `usethis::use_test()`
 
-. . . 
+. . .
 
 set up expectations for your functions and compare them against the status quo.
 
@@ -257,7 +258,7 @@ set up expectations for your functions and compare them against the status quo.
 use_test("greet")
 ```
 
-. . . 
+. . .
 
 this opens a new file, in which we find a first test
 
@@ -267,7 +268,7 @@ test_that("multiplication works", {
 })
 ```
 
-. . . 
+. . .
 
 change that to
 
@@ -281,4 +282,3 @@ test_that("output is a character string", {
 ## 3. tests
 
 Finally, run `test()` in the console and get information on how your tests are performing!
-

@@ -578,7 +578,35 @@
 <section id="assertions-5" class="slide level2">
 <h2>2. assertions</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">report_summary</span>(<span class="at">data =</span> iris, <span class="at">measure =</span> <span class="st">"median"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>report_summary <span class="ot">&lt;-</span> <span class="cf">function</span>(data, measure, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb23-2"><a href="#cb23-2"></a>                           <span class="at">quantiles =</span> <span class="cn">NULL</span>){</span>
+<span id="cb23-3"><a href="#cb23-3"></a>  </span>
+<span id="cb23-4"><a href="#cb23-4"></a>  <span class="fu">assertVector</span>(<span class="at">x =</span> data, <span class="at">strict =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb23-5"><a href="#cb23-5"></a>  <span class="fu">assertChoice</span>(<span class="at">x =</span> measure, <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"median"</span>))</span>
+<span id="cb23-6"><a href="#cb23-6"></a>  <span class="fu">assertLogical</span>(<span class="at">x =</span> na.rm, <span class="at">any.missing =</span> <span class="cn">FALSE</span>, <span class="at">len =</span> <span class="dv">1</span>)</span>
+<span id="cb23-7"><a href="#cb23-7"></a>  <span class="fu">assertNumeric</span>(<span class="at">x =</span> quantiles, <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">1</span>, </span>
+<span id="cb23-8"><a href="#cb23-8"></a>                <span class="at">any.missing =</span> <span class="cn">FALSE</span>, <span class="at">null.ok =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb23-9"><a href="#cb23-9"></a>  </span>
+<span id="cb23-10"><a href="#cb23-10"></a>  <span class="cf">if</span>(measure <span class="sc">==</span> <span class="st">"mean"</span>){</span>
+<span id="cb23-11"><a href="#cb23-11"></a>    out <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="at">x =</span> data, <span class="at">na.rm =</span> na.rm)</span>
+<span id="cb23-12"><a href="#cb23-12"></a>  } <span class="cf">else</span> <span class="cf">if</span>(measure <span class="sc">==</span> <span class="st">"median"</span>){</span>
+<span id="cb23-13"><a href="#cb23-13"></a>    out <span class="ot">&lt;-</span> <span class="fu">median</span>(<span class="at">x =</span> data, <span class="at">na.rm =</span> na.rm)  </span>
+<span id="cb23-14"><a href="#cb23-14"></a>  }</span>
+<span id="cb23-15"><a href="#cb23-15"></a>  out <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="at">x =</span> out, <span class="at">digits =</span> <span class="dv">2</span>)</span>
+<span id="cb23-16"><a href="#cb23-16"></a>  </span>
+<span id="cb23-17"><a href="#cb23-17"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(quantiles)){</span>
+<span id="cb23-18"><a href="#cb23-18"></a>    out <span class="ot">&lt;-</span> <span class="fu">c</span>(out, <span class="fu">quantile</span>(data, <span class="at">probs =</span> quantiles, <span class="at">na.rm =</span> na.rm))</span>
+<span id="cb23-19"><a href="#cb23-19"></a>  }</span>
+<span id="cb23-20"><a href="#cb23-20"></a>  <span class="fu">names</span>(out)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(measure)</span>
+<span id="cb23-21"><a href="#cb23-21"></a>  </span>
+<span id="cb23-22"><a href="#cb23-22"></a>  <span class="fu">return</span>(out)</span>
+<span id="cb23-23"><a href="#cb23-23"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="assertions-6" class="slide level2">
+<h2>2. assertions</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">report_summary</span>(<span class="at">data =</span> iris, <span class="at">measure =</span> <span class="st">"median"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in report_summary(data = iris, measure = "median"): Assertion on 'data' failed: Must be of type 'vector', not 'data.frame'.</code></pre>
 </div>
@@ -586,7 +614,7 @@
 <div class="fragment">
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">report_summary</span>(<span class="at">data =</span> iris<span class="sc">$</span>Sepal.Length, <span class="at">measure =</span> <span class="st">"sd"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">report_summary</span>(<span class="at">data =</span> iris<span class="sc">$</span>Sepal.Length, <span class="at">measure =</span> <span class="st">"sd"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in report_summary(data = iris$Sepal.Length, measure = "sd"): Assertion on 'measure' failed: Must be element of set {'mean','median'}, but is 'sd'.</code></pre>
 </div>
@@ -606,23 +634,23 @@
 <section id="tests-1" class="slide level2">
 <h2>3. tests</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">use_test</span>(<span class="st">"greet"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">use_test</span>(<span class="st">"greet"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p>this opens a new file, in which we find a first test</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">test_that</span>(<span class="st">"multiplication works"</span>, {</span>
-<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">expect_equal</span>(<span class="at">object =</span> <span class="dv">2</span> <span class="sc">*</span> <span class="dv">2</span>, <span class="at">expected =</span> <span class="dv">4</span>)</span>
-<span id="cb28-3"><a href="#cb28-3"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">test_that</span>(<span class="st">"multiplication works"</span>, {</span>
+<span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">expect_equal</span>(<span class="at">object =</span> <span class="dv">2</span> <span class="sc">*</span> <span class="dv">2</span>, <span class="at">expected =</span> <span class="dv">4</span>)</span>
+<span id="cb29-3"><a href="#cb29-3"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
 <p>change that to</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">test_that</span>(<span class="st">"output is a character string"</span>, {</span>
-<span id="cb29-2"><a href="#cb29-2"></a>  out <span class="ot">&lt;-</span> <span class="fu">greet</span>(<span class="at">whom =</span> <span class="st">"World"</span>)</span>
-<span id="cb29-3"><a href="#cb29-3"></a>  <span class="fu">expect_character</span>(<span class="at">x =</span> out, <span class="at">len =</span> <span class="dv">1</span>, <span class="at">pattern =</span> <span class="st">"Hello.*!"</span>)</span>
-<span id="cb29-4"><a href="#cb29-4"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">test_that</span>(<span class="st">"output is a character string"</span>, {</span>
+<span id="cb30-2"><a href="#cb30-2"></a>  out <span class="ot">&lt;-</span> <span class="fu">greet</span>(<span class="at">whom =</span> <span class="st">"World"</span>)</span>
+<span id="cb30-3"><a href="#cb30-3"></a>  <span class="fu">expect_character</span>(<span class="at">x =</span> out, <span class="at">len =</span> <span class="dv">1</span>, <span class="at">pattern =</span> <span class="st">"Hello.*!"</span>)</span>
+<span id="cb30-4"><a href="#cb30-4"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
