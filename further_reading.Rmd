@@ -26,7 +26,7 @@ In case you are working in the life-sciences (with genomic data) you may be inte
 
 # R consortium
 
-The [R consortium](https://www.r-consortium.org/) is a relatively young organisation that promotes and supports the R project. In case you have a ground-breaking idea for an R package, you can [apply for a grant](https://www.r-consortium.org/projects/call-for-proposals).
+The [R consortium](https://www.r-consortium.org/) is a relatively young organisation that promotes and supports the R project.
 
 # R markdown
 
