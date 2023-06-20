@@ -33,7 +33,7 @@ Reload the package
 
 ```{r, eval=FALSE}
 devtools::load_all()
-# > Loading myPackage
+# Loading myPackage
 ```
 
 And run the function
@@ -55,7 +55,7 @@ In short, function can *make the analysis of your paper reproducible*. Lets buil
 
 ```{r, eval=FALSE}
 usethis::use_r(name = "report_summary")
-# > ● Modify 'R/report_summary.R'
+# ● Modify 'R/report_summary.R'
 ```
 
 Start developing the function...
