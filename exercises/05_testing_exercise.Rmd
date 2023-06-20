@@ -60,14 +60,14 @@ The additional effort we put into documenting arguments, those text-fileds that 
 
 
 ```{r, eval=FALSE}
-load_all()
+devtools::load_all()
 report_summary(data = iris, measure = "median")
-#> Error in report_summary(iris, measure = "median") : 
-#>   Assertion on 'data' failed: Must be of type 'vector', not 'data.frame'.
+# > Error in report_summary(iris, measure = "median") : 
+# >   Assertion on 'data' failed: Must be of type 'vector', not 'data.frame'.
 
 report_summary(data = iris$Sepal.Length, measure = "sd")
-#> Error in report_summary(iris$Sepal.Length, measure = "sd") : 
-#>   Assertion on 'measure' failed: Must be element of set {'mean','median'}, but is 'sd'.
+# > Error in report_summary(iris$Sepal.Length, measure = "sd") : 
+# >   Assertion on 'measure' failed: Must be element of set {'mean','median'}, but is 'sd'.
 ```
 
 ## Your turn
@@ -82,20 +82,21 @@ When writing functions you would test them all the time informally, for instance
 Those tests can be carried out formally by writing unit-tests. First, we set up the testing framework which is placed in the folder `tests` at the root directory of the package.
 
 ```{r, eval=FALSE}
-use_testthat()
-#> ✔ Adding 'testthat' to Suggests field in DESCRIPTION
-#> ✔ Creating 'tests/testthat/'
-#> ✔ Writing 'tests/testthat.R'
-#> ● Call `use_test()` to initialize a basic test file and open it for editing.
+usethis::use_testthat()
+# ✔ Adding 'testthat' to Suggests field in DESCRIPTION
+# ✔ Adding '3' to Config/testthat/edition
+# ✔ Creating 'tests/testthat/'
+# ✔ Writing 'tests/testthat.R'
+# ● Call `use_test()` to initialize a basic test file and open it for editing.
+usethis::use_package("checkmate")
 ```
 
 We would then create tests for each specific function via `use_test()`, as suggested by `use_testthat()`.
 
 ```{r, eval=FALSE}
-use_test("greet")
-#> ✔ Increasing 'testthat' version to '>= 2.1.0' in DESCRIPTION
-#> ✔ Writing 'tests/testthat/test-greet.R'
-#> ● Modify 'tests/testthat/test-greet.R'
+usethis::use_test("greet")
+# ✔ Writing 'tests/testthat/test-greet.R'
+# ● Modify 'tests/testthat/test-greet.R'
 ```
 
 This creates and opens the file `test_greet.R`, into which we would write test. Tests are organised into units of similar functionality. Each test requires that particular objects are provided to the function to test and to compare the output to an expectation.
@@ -120,9 +121,9 @@ test_that("output is a character string", {
 For the `report_summary()` function we'd also have to define a range of tests
 
 ```{r, eval=FALSE}
-use_test("report_summary")
-#> ✔ Writing 'tests/testthat/test-report_summary.R'
-#> ● Modify 'tests/testthat/test-report_summary.R'
+usethis::use_test("report_summary")
+# ✔ Writing 'tests/testthat/test-report_summary.R'
+# ● Modify 'tests/testthat/test-report_summary.R'
 ```
 
 Here we have more things to test. First of all, we need to make sure that the output is in fact what would be expected from the function. We have two "units", first that the output is in fact a numeric vector and secondly that the correct quantiles are computed.
@@ -157,26 +158,22 @@ test_that("errors when false input", {
 })
 ```
 
-We do not need to run those tests in the console, even though we could. They would ideally not show any output, because those functions do either complain about an unexpected behaviour, or do not output anything at all.
+We do not need to run those tests in the console, even though we could. They would ideally not show any output, because those functions do either complain about an unexpected behaviour, or do not output anything at all. However, what we still need to do, as each test is treated as if it were a stand-alone script, is to load all relevant packages that contain the functions used here beyond `devtools` and  `testthat`, such as `checkmate`. We do this, by adding `library(checkmate)` at the top of each test-script.
 
 We run the tests simply via
 
 ```{r, eval=FALSE}
-test()
-#> Loading myPackage
-#> Testing myPackage
-#> ✔ |  OK F W S | Context
-#> ✔ |   1       | greet
-#> ✔ |   7       | report_summary
-#> 
-#> ══ Results ═════════════════════════════════════════════════════════════════════════════════════════════════
-#> OK:       8
-#> Failed:   0
-#> Warnings: 0
-#> Skipped:  0
+devtools::test()
+# Testing ℹ Testing myPackage
+# ✔ | F W S  OK | Context
+# ✔ |         1 | greet                                                                                        
+# ✔ |         6 | report_summary
+# 
+# ══ Results ═════════════════════════════════════════════════════════════════════════════════════════════════
+# [ FAIL 0 | WARN 0 | SKIP 0 | PASS 7 ]
 ```
 
-Which shows that there were 8 tests that all performed as expected.
+Which shows that there were 7 tests that all performed as expected.
 
 ## Your turn
 
