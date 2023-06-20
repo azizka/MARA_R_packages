@@ -14,7 +14,7 @@ editor: visual
 ---
 
 ## Vignettes
-<br>
+
 Vignettes are more detailed than help pages, for instance tutorials for analyses or explanations of algorithms
 
 . . .
@@ -23,9 +23,9 @@ Vignettes are more detailed than help pages, for instance tutorials for analyses
 
 You can write vignettes in markdown, combining text and code.
 
-
 ## Vignettes
-```
+
+```         
 ---
 title: "Select and plot bromeliaceae distribution and diversity"
 # output: rmarkdown::html_vignette
@@ -150,70 +150,54 @@ To write the georeferenced occurrences as a table, use
 {r, eval = F}
 data(georef_additions)
 write.csv(georef_additions, "georeferenced_bromeliad_occurrences.csv")
-
 ```
-
 
 ## Package release
 
 A picture
 
-
 ## Package release
 
 ::: incremental
-
-- Github
-- CRAN
-
+-   Github
+-   CRAN
 :::
-
 
 ## Releasing on GitHub
 
 make sure your package is ready:
 
 ::: incremental
-
-- documentation
-- best practices
-- tests
-- checks
-
+-   documentation
+-   best practices
+-   tests
+-   checks
 :::
 
 . . .
 
 <br>
 
--> Tag a release
-
+-\> Tag a release
 
 ## Tag a release
-
-
 
 ## Releasing a package on CRAN
 
 ::: incremental
-
-- High quality
-- High reach
-- Safety
-- Good reputation
-
+-   High quality
+-   High reach
+-   Safety
+-   Good reputation
 :::
-
 
 ## If you want to release a package on CRAN
 
 . . .
 
-...expect some extra work
-
+... expect some extra work
 
 ## Release on CRAN
-
 
 Follow best practices
 
@@ -224,6 +208,5 @@ Read and strictly follow 'Writing R extensions'
 . . .
 
 Solve all R CMD errors, warnings and notes
-
 
 ## Ropensci

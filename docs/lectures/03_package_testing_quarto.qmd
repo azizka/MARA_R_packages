@@ -22,9 +22,11 @@ library(checkmate)
 ## What is "testing"
 
 ::: incremental
+
 1.  checks
 2.  assertions
 3.  tests
+
 :::
 
 ## 1. checks
