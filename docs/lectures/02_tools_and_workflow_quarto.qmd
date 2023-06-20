@@ -1,0 +1,258 @@
+---
+title: "Tools and workflow for building R packages"
+# title-slide-attributes:
+#     data-background-image: ./pictures/Rlogo.svg
+#     data-background-size: 50%
+#     data-background-opacity: "0.5"
+format: 
+  revealjs:
+    theme: serif
+    highlight-style: gruvbox
+    # logo: logo.png
+    # footer: "Footer text"format:
+editor: visual
+---
+
+## RStudio
+
+Has revolutionised the way to interact with R
+
+. . .
+
+This Integrated development environment (IDE) is built around some of the most useful R functions/packages (inlc. `devtools` and `roxygen2`).
+
+. . .
+
+Lets you set up projects, is integrated with git and makes setting up websites and writing articles/books a breeze!
+
+. . .
+
+<br>
+
+[Shall we take a look at RStudio together or does everybody know their way around?]{style="color: grey;"}
+
+
+## Tools
+
+You can do most things by typing commands into the console.
+
+. . .
+
+However, if that is too nerdy for you, you can also click on buttons! ([show some cool buttons]{style="color: grey;"})
+
+. . .
+
+<br>
+
+Why should you then use the console at all? <br>
+
+. . .
+
+-> it makes your work reproducible and more transparent for readers/users of your work.
+
+Here we show mostly how to use the console for making your package.
+
+
+
+## `devtools`
+
+tools for building, documenting and testing packages
+
+[link](https://cran.r-project.org/web/packages/devtools)
+
+
+## `usethis`
+
+provides many functions that help setting up a package
+
+. . .
+
+provides a "standard way of doing things" that ensures you miss no (crucial) step
+
+[link](https://cran.r-project.org/web/packages/usethis/)
+
+
+## `testthat`
+
+specify what you expect your functions to do
+
+. . .
+
+write unit-tests (test for similar sets of tasks) that validate your expectations
+
+. . .
+
+display test progress visually
+
+[link](https://cran.r-project.org/web/packages/testthat/)
+
+
+## `roxygen`
+
+generate R documentation
+
+. . .
+
+manage the package namespace
+
+[link](https://cran.r-project.org/web/packages/roxygen2/)
+
+
+## `checkmate`
+
+make sure that arguments are what they should be
+
+. . .
+
+test whether and assert that certain conditions about objects are true
+
+. . .
+
+extend the capabilities of `testthat`
+
+[link](https://cran.r-project.org/web/packages/checkmate/)
+
+
+## 1. Getting started
+
+You can either click on <br>*File > New Project > New Directory > R package*<br> and provide the required information
+
+. . . 
+
+or simply type in `usethis::create_package()` into the console.
+
+. . . 
+
+<br>
+
+-> the console is your friend, in R it even talks to you, for example if you type in something wrong.
+
+
+## 2. Setting up git
+
+I hope you all have an account already! ([www.github.com]{style="color: grey;"})
+
+A simple `usethis::use_git()` will assist you in setting up git.
+
+
+## 2. Setting up git
+
+`git` (a software) is a version control system that lets you track files through their whole life.
+
+. . . 
+
+`github` (a website) allows managing issues people might have with/find in your code.
+
+. . . 
+
+<br>
+
+-> If you do github well, it might even be a nice advertisement for your work!
+
+
+## 3. Edit the DESCRIPTION of your package
+
+This is an important step, because
+
+::: incremental
+
+* it lets you formulate what you even want to achieve with the package in a brief description.
+* it makes metadata about your package available.
+
+:::
+
+. . . 
+
+<br>
+
+-> make sure to take care that everything is properly described here, this is the public face of your package.
+
+
+## 4. Read in data & write function(s)
+
+The backbone of your package, this is why users consult your package.
+
+::: incremental
+
+- `usethis::use_data(myData)` to include data and <br>
+- `usethis::use_r(name = "myFunc")` to start a function. 
+
+:::
+
+. . . 
+
+It is not only about *what* your package does, but also *how* it achieves that (<span class="grayed">tidyverse</span>).
+
+. . . 
+
+<br>
+
+-> be smart about functions. 
+
+## 5. Document data & functions
+
+Use roxygen commands to annotate the documentation text inside the function file.
+
+. . . 
+
+`devtools::document()` to build the documentation.
+
+. . . 
+
+<br>
+
+-> even widely spread packages have a bad documentation at times. You can distinguish your package by putting effort into explaining your functions.
+
+
+## 6. Build and test the package {.smaller}
+
+R functions run also without compiling (building).
+
+. . . 
+
+It is often the case that you use variables that are only available in the `Global Environment`, so you have to test a function in the package, where those variables are not available.
+
+::: incremental
+
+- `devtools::build()` compiles the package, which gives you first warnings.<br>
+- `devtools::test()` runs the package tests.<br>
+- `devtools::check()` makes sure that the package is viable.
+
+:::
+
+. . . 
+
+<br>
+
+-> make use of this infrastructure, it iproves your package drastically
+
+## Finally
+
+7. Repeat until you are satisfied ...
+
+. . . 
+
+8. Publish your work.
+
+
+
+
+
+## Summary
+
+Use RStudio to manage your package
+
+. . . 
+
+Use git(hub/lab) to host your package for collaboration
+
+. . . 
+
+<br>
+set up package and its description
+<br> - write functions
+<br> - document functions
+<br> - (load data)
+<br> - build and test package
+<br> - repeat ...
+<br> - publish
