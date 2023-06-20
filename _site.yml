@@ -23,12 +23,11 @@ navbar:
       href: exercises/06_vignettes_exercise.html
     - text: 07 - Release
       href: exercises/07_final_checks_and_release_exercise.html
-
   - text: Further reading
     href: further_reading.html
   right:
   - text: GitHub
-    href: https://github.com/idiv-biodiversity/yDiv_building_packages_Rstudio_GitHub
+    href: https://github.com/azizka/MARA_R_packages
 output:
   html_document:
     lib_dir: site_libs
